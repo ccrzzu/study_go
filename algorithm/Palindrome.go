@@ -130,3 +130,22 @@ func MinInsertions(s string) int {
 	}
 	return dp[0][slen-1]
 }
+
+func LongestPalindromeAfterBuild(s string) int {
+	var sb ['z' - 'A' + 1]int
+	for i := range s {
+		sb[s[i]-'A']++
+	}
+	sum := 0
+	for _, v := range sb {
+		sum += v / 2 * 2
+	}
+
+	//sum等于s的长度，说明字符串本身就可以组成一个回文串
+	if sum == len(s) {
+		return sum
+	} else {
+		//一定比s小，且是偶数，那偶数成双成对，加1个奇数的就可以了
+		return sum + 1
+	}
+}
