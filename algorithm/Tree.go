@@ -398,3 +398,46 @@ func findDuplicateSubtreesDG(root *TreeNode) string {
 	fmt.Println(subTreesMap, dRes)
 	return subTreeStr
 }
+
+func minDepthByBFS(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	l := list.New()
+	l.PushFront(root)
+	depth := 1
+	for l.Len() > 0 {
+		lLen := l.Len()
+		for i := 0; i < lLen; i++ {
+			node := l.Remove(l.Back()).(*TreeNode)
+			if node.Left == nil && node.Right == nil {
+				return depth
+			}
+			if node.Left != nil {
+				l.PushFront(node.Left)
+			}
+			if node.Right != nil {
+				l.PushFront(node.Right)
+			}
+		}
+		depth++
+	}
+	return depth
+}
+
+func minDepthByDFSorDG(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+	minD := math.MaxInt32
+	if root.Left != nil {
+		minD = int(math.Min(float64(minDepthByDFSorDG(root.Left)), float64(minD)))
+	}
+	if root.Right != nil {
+		minD = int(math.Min(float64(minDepthByDFSorDG(root.Right)),float64(minD)))
+	}
+	return minD + 1
+}
