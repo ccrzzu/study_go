@@ -44,10 +44,10 @@ func binarySearchRange(nums []int, target int) []int {
 			left = mid + 1
 		}
 	}
-	if left == len(nums) || nums[left] != target {
+	if right<0 || nums[right] != target {
 		res = append(res, -1)
 	} else {
-		res = append(res, left)
+		res = append(res, right)
 	}
 	return res
 }
