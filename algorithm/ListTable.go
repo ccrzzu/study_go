@@ -41,3 +41,70 @@ func ListNodeIsPalindrome(head *ListNode) bool {
 	}
 	return true
 }
+
+func hasCycle(head *ListNode) bool {
+	fast, slow := &ListNode{}, &ListNode{}
+	fast = head
+	slow = head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+
+		if fast == slow {
+			return true
+		}
+	}
+	return false
+}
+
+func detectCycle(head *ListNode) *ListNode {
+	fast, slow := &ListNode{}, &ListNode{}
+	fast = head
+	slow = head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+
+		if fast == slow {
+			break
+		}
+	}
+	if fast == nil || fast.Next == nil {
+		return nil
+	}
+	slow = head
+	for slow != fast {
+		slow = slow.Next
+		fast = fast.Next
+	}
+	return slow
+}
+
+func middleNode(head *ListNode) *ListNode {
+	fast, slow := &ListNode{}, &ListNode{}
+	fast = head
+	slow = head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	return slow
+}
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	fast, slow := &ListNode{}, &ListNode{}
+	fast, slow = head, head
+	for n > 0 {
+		fast = fast.Next
+		n--
+	}
+	if fast == nil {
+		return head.Next
+	}
+	for fast.Next != nil {
+		fast = fast.Next
+		slow = slow.Next
+	}
+	slow.Next = slow.Next.Next
+	return head
+}

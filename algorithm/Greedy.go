@@ -21,3 +21,22 @@ func removeKdigits(num string, k int) string {
 	}
 	return ans
 }
+
+
+func canCompleteCircuit(gas []int, cost []int) int {
+	left, start := 0, 0
+	totalCost, totalGas := 0, 0
+	for i := 0; i < len(gas); i++ {
+		left += gas[i] - cost[i]
+		totalCost += cost[i]
+		totalGas += gas[i]
+		if left < 0 {
+			start = i+1
+			left = 0
+		}
+	}
+	if totalGas < totalCost {
+		return -1
+	}
+	return start
+}
