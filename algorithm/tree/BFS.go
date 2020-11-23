@@ -1,4 +1,4 @@
-package algorithm
+package tree
 
 func OpenLock(deadends []string, target string) int {
 	//死亡数字从数组转成map，判断时加快速度

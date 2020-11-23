@@ -1,4 +1,4 @@
-package algorithm
+package double_pointer
 
 //两数相加等于目标数
 func twoSum(numbers []int, target int) []int {
@@ -14,4 +14,16 @@ func twoSum(numbers []int, target int) []int {
 		}
 	}
 	return []int{-1,-1}
+}
+
+//反转字符串
+func reverseString(s []byte)  {
+	left,right := 0, len(s)-1
+	for left < right{
+		temp := s[left]
+		s[left] = s[right]
+		s[right] = temp
+		left++
+		right--
+	}
 }

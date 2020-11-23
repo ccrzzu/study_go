@@ -1,7 +1,8 @@
-package algorithm
+package sub_sequence
 
 import "math"
 
+//给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。
 func LongestCommonSubsequence(text1 string, text2 string) int {
 	//return dgForLCS(text1, text2, len(text1)-1, len(text2)-1)
 	t1l := len(text1)
@@ -24,6 +25,7 @@ func LongestCommonSubsequence(text1 string, text2 string) int {
 	return dp[t1l][t2l]
 }
 
+//最长公共子序列的递归解法
 func dgForLCS(text1, text2 string, i, j int) int {
 	//当都是空串的时候，返回-1
 	if i == -1 || j == -1 {

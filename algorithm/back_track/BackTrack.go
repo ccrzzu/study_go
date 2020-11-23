@@ -1,6 +1,8 @@
-package algorithm
+package back_track
 
 import "fmt"
+
+//总：其实 DFS 算法就是回溯算法
 
 var res [][]int
 

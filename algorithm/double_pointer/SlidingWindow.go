@@ -1,4 +1,4 @@
-package algorithm
+package double_pointer
 
 import "math"
 

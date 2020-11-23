@@ -1,4 +1,4 @@
-package algorithm
+package sub_sequence
 
 import (
 	"math"
@@ -6,6 +6,10 @@ import (
 	"strings"
 )
 
+// LIS（Longest Increasing Subsequence）
+// 最长递增子序列一个数的序列bi，当b1 < b2 < … < bS的时候，我们称这个序列是上升的
+
+//给定一个未排序的整数数组，找到最长递增子序列的个数。
 func FindNumberOfLIS(nums []int) int {
 	dp := make([]int, len(nums), len(nums))
 	count := make([]int, len(nums), len(nums))
@@ -37,6 +41,7 @@ func FindNumberOfLIS(nums []int) int {
 	return res
 }
 
+//给定一个无序的整数数组，找到其中最长递增子序列的长度。
 func LengthOfLIS(nums []int) int {
 	dp := make([]int, len(nums), len(nums))
 	maxLen := 0
@@ -54,6 +59,7 @@ func LengthOfLIS(nums []int) int {
 	return maxLen
 }
 
+//给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是2。
 func FindSubsequences(nums []int) [][]int {
 	resMap := make(map[int][][]int)
 	for i := 0; i < len(nums); i++ {
@@ -145,17 +151,20 @@ func StringToIntSlice(r string) []int {
 	return res
 }
 
+//LHS 最长和谐子序列
+//和谐数组是指一个数组里元素的最大值和最小值之间的差别正好是1。
+//现在，给定一个整数数组，你需要在所有可能的子序列中找到最长的和谐子序列的长度。
 func FindLHS(nums []int) int {
-	if len(nums) < 2{
+	if len(nums) < 2 {
 		return 0
 	}
 	var res int
 	dpMap := make(map[int]int)
-	for _,item := range nums{
+	for _, item := range nums {
 		dpMap[item]++
 	}
-	for k,v := range dpMap{
-		if dpMap[k+1] != 0 && dpMap[k+1] + v > res{
+	for k, v := range dpMap {
+		if dpMap[k+1] != 0 && dpMap[k+1]+v > res {
 			res = dpMap[k+1] + v
 		}
 	}

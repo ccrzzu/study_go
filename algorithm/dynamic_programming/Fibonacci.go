@@ -1,4 +1,4 @@
-package algorithm
+package dynamic_programming
 
 func Fibonacci(n int) int {
 	/*memo := make(map[int]int)

@@ -1,10 +1,11 @@
-package algorithm
+package linked_list
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
+//反转链表
 func ReverseList(head *ListNode) *ListNode {
 	var pre, cur *ListNode
 	pre = nil
@@ -19,6 +20,7 @@ func ReverseList(head *ListNode) *ListNode {
 	return pre
 }
 
+//是否是回文链表
 func ListNodeIsPalindrome(head *ListNode) bool {
 	slow := head
 	fast := head
@@ -42,6 +44,7 @@ func ListNodeIsPalindrome(head *ListNode) bool {
 	return true
 }
 
+//判断链表是否有环
 func hasCycle(head *ListNode) bool {
 	fast, slow := &ListNode{}, &ListNode{}
 	fast = head
@@ -57,6 +60,7 @@ func hasCycle(head *ListNode) bool {
 	return false
 }
 
+//给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
 func detectCycle(head *ListNode) *ListNode {
 	fast, slow := &ListNode{}, &ListNode{}
 	fast = head
@@ -80,6 +84,7 @@ func detectCycle(head *ListNode) *ListNode {
 	return slow
 }
 
+//链表的中间节点
 func middleNode(head *ListNode) *ListNode {
 	fast, slow := &ListNode{}, &ListNode{}
 	fast = head
@@ -91,6 +96,7 @@ func middleNode(head *ListNode) *ListNode {
 	return slow
 }
 
+//删除链表倒数第n个节点
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	fast, slow := &ListNode{}, &ListNode{}
 	fast, slow = head, head

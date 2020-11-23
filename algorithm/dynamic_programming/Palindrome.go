@@ -1,4 +1,4 @@
-package algorithm
+package dynamic_programming
 
 import (
 	"math"

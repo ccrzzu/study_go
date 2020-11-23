@@ -1,4 +1,4 @@
-package algorithm
+package tree
 
 import (
 	"container/list"
@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 )
+
+var res [][]int
 
 type TreeNode struct {
 	Val   int
@@ -24,6 +26,7 @@ type Codec struct {
 	l []string
 }
 
+//树的序列化与反序列化
 func Constructor() Codec {
 	return Codec{}
 }
@@ -250,6 +253,7 @@ func levelOrderDFS(root *TreeNode, level int) {
 	levelOrderDFS(root.Right, level+1)
 }
 
+//合并树
 func mergeTrees(t1 *TreeNode, t2 *TreeNode) *TreeNode {
 	if t1 == nil {
 		return t2
@@ -313,6 +317,13 @@ func mergeTreesByQueue(t1 *TreeNode, t2 *TreeNode) *TreeNode {
 	return rootNode
 }
 
+/**
+给定一个不含重复元素的整数数组。一个以此数组构建的最大二叉树定义如下：
+二叉树的根是数组中的最大元素。
+左子树是通过数组中最大值左边部分构造出的最大二叉树。
+右子树是通过数组中最大值右边部分构造出的最大二叉树。
+通过给定的数组构建最大二叉树，并且输出这个树的根节点。
+**/
 func constructMaximumBinaryTree(nums []int) *TreeNode {
 	if len(nums) == 0 {
 		return nil
@@ -384,6 +395,7 @@ func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
 	return dRes
 }
 
+//寻找重复的子树 递归解法
 func findDuplicateSubtreesDG(root *TreeNode) string {
 	if root == nil {
 		return "#"
@@ -399,6 +411,7 @@ func findDuplicateSubtreesDG(root *TreeNode) string {
 	return subTreeStr
 }
 
+//二叉树深度 BFS解法
 func minDepthByBFS(root *TreeNode) int {
 	if root == nil {
 		return 0
@@ -425,6 +438,7 @@ func minDepthByBFS(root *TreeNode) int {
 	return depth
 }
 
+//二叉树深度 DFS 即递归解法
 func minDepthByDFSorDG(root *TreeNode) int {
 	if root == nil {
 		return 0
@@ -437,7 +451,7 @@ func minDepthByDFSorDG(root *TreeNode) int {
 		minD = int(math.Min(float64(minDepthByDFSorDG(root.Left)), float64(minD)))
 	}
 	if root.Right != nil {
-		minD = int(math.Min(float64(minDepthByDFSorDG(root.Right)),float64(minD)))
+		minD = int(math.Min(float64(minDepthByDFSorDG(root.Right)), float64(minD)))
 	}
 	return minD + 1
 }

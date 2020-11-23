@@ -1,7 +1,7 @@
 package main
 
 import (
-	"MyProject/algorithm"
+	"MyProject/algorithm/tree"
 	"fmt"
 )
 
@@ -26,5 +26,5 @@ func main() {
 	//fmt.Println(algorithm.SolveNQueens(1))
 	//fmt.Println(algorithm.BuildTree([]int{3,9,20,15,7},[]int{9,3,15,20,7}))
 	//fmt.Println(algorithm.OpenLock([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
-	fmt.Println(algorithm.OpenLockByBidirectional([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
+	fmt.Println(tree.OpenLockByBidirectional([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
 }

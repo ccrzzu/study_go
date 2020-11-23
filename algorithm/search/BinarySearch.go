@@ -1,5 +1,6 @@
-package algorithm
+package search
 
+//二分查找
 func binarySearch(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 	for left <= right {
@@ -15,6 +16,7 @@ func binarySearch(nums []int, target int) int {
 	return -1
 }
 
+//二分查找所有符合的值
 func binarySearchRange(nums []int, target int) []int {
 	res := []int{}
 	left, right := 0, len(nums)-1
