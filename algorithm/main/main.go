@@ -1,7 +1,7 @@
 package main
 
 import (
-	"MyProject/algorithm/tree"
+	"MyProject/algorithm/dynamic_programming"
 	"fmt"
 )
 
@@ -26,5 +26,7 @@ func main() {
 	//fmt.Println(algorithm.SolveNQueens(1))
 	//fmt.Println(algorithm.BuildTree([]int{3,9,20,15,7},[]int{9,3,15,20,7}))
 	//fmt.Println(algorithm.OpenLock([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
-	fmt.Println(tree.OpenLockByBidirectional([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
+	//fmt.Println(tree.OpenLockByBidirectional([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
+	//fmt.Println(algorithm.MaxProfit_k_2([]int{3,3,5,0,0,3,1,4}))
+	fmt.Println(dynamic_programming.MaxProfit_k_s(2,[]int{2,4,1}))
 }
