@@ -28,5 +28,7 @@ func main() {
 	//fmt.Println(algorithm.OpenLock([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
 	//fmt.Println(tree.OpenLockByBidirectional([]string{"1131","1303","3113","0132","1301","1303","2200","0232","0020","2223"},"3312"))
 	//fmt.Println(algorithm.MaxProfit_k_2([]int{3,3,5,0,0,3,1,4}))
-	fmt.Println(dynamic_programming.MaxProfit_k_s(2,[]int{2,4,1}))
+	//fmt.Println(dynamic_programming.MaxProfit_k_s(2,[]int{2,4,1}))
+	//fmt.Println(double_pointer.TwoSum([]int{3,2,4},6))
+	fmt.Println(dynamic_programming.SuperEggDrop(2,6))
 }

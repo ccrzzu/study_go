@@ -1,6 +1,8 @@
 package dynamic_programming
 
-import "math"
+import (
+	"math"
+)
 
 var memo []int
 

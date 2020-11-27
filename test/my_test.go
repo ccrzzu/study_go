@@ -3,6 +3,8 @@ package test
 import (
 	"container/list"
 	"fmt"
+	"sort"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -82,4 +84,45 @@ func TestBase(t *testing.T) {
 	s2 = []string{}
 	fmt.Println(s1 == nil, s2 == nil)
 	fmt.Println(len(s1), len(s2))
+}
+
+func TestSort(t *testing.T)  {
+	intList := [] int {2, 4, 3, 5, 7, 6, 9, 8, 1, 0}
+	float8List := [] float64 {4.2, 5.9, 12.3, 10.0, 50.4, 99.9, 31.4, 27.81828, 3.14}
+	stringList := [] string {"a", "c", "b", "d", "f", "i", "z", "x", "w", "y"}
+
+	sort.Ints(intList)
+	sort.Float64s(float8List)
+	sort.Strings(stringList)
+
+	fmt.Printf("%v\n%v\n%v\n", intList, float8List, stringList)
+}
+
+func TestSortReverse(t *testing.T)  {
+	intList := [] int {2, 4, 3, 5, 7, 6, 9, 8, 1, 0}
+	float8List := [] float64 {4.2, 5.9, 12.3, 10.0, 50.4, 99.9, 31.4, 27.81828, 3.14}
+	stringList := [] string {"a", "c", "b", "d", "f", "i", "z", "x", "w", "y"}
+
+	sort.Sort(sort.Reverse(sort.IntSlice(intList)))
+	sort.Sort(sort.Reverse(sort.Float64Slice(float8List)))
+	sort.Sort(sort.Reverse(sort.StringSlice(stringList)))
+
+	fmt.Printf("%v\n%v\n%v\n", intList, float8List, stringList)
+}
+
+func TestSortDoubleDimensionalArray(t *testing.T)  {
+	intervals := [][]int{{1,4},{1,5},{3,6},{2,8}}
+	sort.Slice(intervals, func(i, j int) bool {
+		if intervals[i][0] == intervals[j][0]{
+			return intervals[j][1] < intervals[i][1]
+		}
+		return intervals[i][0] < intervals[j][0]
+	})
+	fmt.Println(intervals)
+}
+
+func TestStringToLower(t *testing.T)  {
+	str := "##Quentome"
+	fmt.Println(strings.ToLower(str))
+	fmt.Println(strconv.Itoa(2)+""+strconv.Itoa(6))
 }
