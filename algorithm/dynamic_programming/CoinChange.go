@@ -10,6 +10,7 @@ import (
  * @param amount: a total amount of money amount
  * @return: the fewest number of coins that you need to make up
  */
+//凑零钱 递归
 func CoinChange(coins []int, amount int) int {
 	// write your code here
 	memo := make(map[int]int)
@@ -59,6 +60,7 @@ func dg(memo map[int]int, coins []int, amount int) int {
 	return memo[amount]
 }
 
+//凑零钱 迭代
 func CoinChangeByIter(coins []int, amount int) int {
 	// 设定数组大小为amount+1，同时初始值也都设为amount+1
 	amountInit := make([]int, amount+1)

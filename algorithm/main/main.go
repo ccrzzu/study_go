@@ -1,9 +1,6 @@
 package main
 
-import (
-	"MyProject/algorithm/dynamic_programming"
-	"fmt"
-)
+import "MyProject/algorithm/sort"
 
 func main() {
 	//fmt.Println("CoinChangeByDG:", algorithm.CoinChange([]int{186, 419, 83, 408}, 6249))
@@ -30,5 +27,7 @@ func main() {
 	//fmt.Println(algorithm.MaxProfit_k_2([]int{3,3,5,0,0,3,1,4}))
 	//fmt.Println(dynamic_programming.MaxProfit_k_s(2,[]int{2,4,1}))
 	//fmt.Println(double_pointer.TwoSum([]int{3,2,4},6))
-	fmt.Println(dynamic_programming.SuperEggDrop(2,6))
+	//fmt.Println(dynamic_programming.SuperEggDrop(2,6))
+	//sort.QuickSort([]int{1,2,2,6,5,4,3,3})
+	sort.BubbleSort([]int{1,2,2,6,5,4,3,3})
 }

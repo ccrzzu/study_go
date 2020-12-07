@@ -455,3 +455,174 @@ func minDepthByDFSorDG(root *TreeNode) int {
 	}
 	return minD + 1
 }
+
+//判断一棵树是否是平衡二叉树
+func IsBalanced(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	if !IsBalanced(root.Left) || !IsBalanced(root.Right) {
+		return false
+	}
+	leftDepth := MaxDepth(root.Left)
+	rightDepth := MaxDepth(root.Right)
+	if root.Left != nil && root.Right != nil {
+		fmt.Printf("node:%v,depth:%v,node:%v,depth:%v\n", root.Left.Val, leftDepth, root.Right.Val, rightDepth)
+	}
+	if math.Abs(float64(leftDepth)-float64(rightDepth)) > 1 {
+		return false
+	}
+	return true
+}
+
+//求解一棵树的深度
+func MaxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	return int(math.Max(float64(MaxDepth(root.Left)), float64(MaxDepth(root.Right)))) + 1
+}
+
+func abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
+
+//求解一颗树的节点数目
+func countNodes(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	return 1 + countNodes(root.Left) + countNodes(root.Right)
+}
+
+//求一颗完全二叉树的节点数目
+func countNodes2(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	leftLevel := countLevel(root.Left)
+	rightLevel := countLevel(root.Right)
+	if leftLevel == rightLevel {
+		return countNodes(root.Right) + (1 << leftLevel)
+	} else {
+		return countNodes(root.Left) + (1 << rightLevel)
+	}
+}
+
+//判断左子树的层数
+func countLevel(root *TreeNode) int {
+	var level int
+	for root != nil {
+		level++
+		root = root.Left
+	}
+	return level
+}
+
+//二叉查找树、二叉排序树、二叉搜索树
+func isValidBST(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	return isBSTByDG(root, math.MinInt64, math.MaxInt64)
+}
+
+func isBSTByDG(root *TreeNode, min, max int) bool {
+	if root == nil {
+		return true
+	}
+	if root.Val <= min || root.Val >= max {
+		return false
+	}
+	return isBSTByDG(root.Left, min, root.Val) && isBSTByDG(root.Right, root.Val, max)
+}
+
+//二叉查找树查找某个元素 递归解法
+func searchBST1(root *TreeNode, val int) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	if root.Val == val {
+		return root
+	} else if root.Val < val {
+		return searchBST1(root.Right, val)
+	} else if root.Val > val {
+		return searchBST1(root.Left, val)
+	}
+	return nil
+}
+
+//二叉查找树查找某个元素 迭代解法
+func searchBST2(root *TreeNode, val int) *TreeNode {
+	for root != nil {
+		if root.Val == val {
+			return root
+		} else if root.Val < val {
+			root = root.Right
+		} else if root.Val > val {
+			root = root.Left
+		}
+	}
+	return nil
+}
+
+//二叉查找树删除某个节点
+func BSTDeleteNode(root *TreeNode, key int) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	if key > root.Val {
+		root.Right = BSTDeleteNode(root.Right, key)
+		return root
+	}
+	if key < root.Val {
+		root.Left = BSTDeleteNode(root.Left, key)
+		return root
+	}
+	//到这里意味着到删除目标了
+	if root.Right == nil {
+		return root.Left
+	}
+	if root.Left == nil {
+		return root.Right
+	}
+	minNode := root.Right
+	for minNode.Left != nil {
+		minNode = minNode.Left
+	}
+	root.Val = minNode.Val
+	root.Right = deleteMinNode(root.Right)
+	return root
+}
+
+//删除最小节点
+func deleteMinNode(root *TreeNode) *TreeNode {
+	if root.Left == nil {
+		pRight := root.Right
+		root.Right = nil
+		return pRight
+	}
+	root.Left = deleteMinNode(root.Left)
+	return root
+}
+
+//树的剪枝
+func pruneTree(root *TreeNode) *TreeNode  {
+	return deal(root)
+}
+
+func deal(node *TreeNode) *TreeNode {
+	if node == nil{
+		return nil
+	}
+	node.Left = deal(node.Left)
+	node.Right = deal(node.Right)
+	//如果这个节点的左右节点都可以剪，且当前节点值也为0，则当前节点为nil，可被整体剪
+	if node.Left == nil && node.Right == nil && node.Val == 0{
+		return nil
+	}
+	return node
+}
