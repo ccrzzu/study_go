@@ -1,5 +1,7 @@
 package tree
 
+//树的广度优先遍历
+
 func OpenLock(deadends []string, target string) int {
 	//死亡数字从数组转成map，判断时加快速度
 	deadendsMap := map[string]bool{}
