@@ -18,7 +18,7 @@ func (pq PriorityQueue) Len() int {
 
 // 绑定Less方法，这里用的是小于号，生成的是小根堆
 func (pq PriorityQueue) Less(i, j int) bool {
-	return pq[i].priority > pq[j].priority
+	return pq[i].priority < pq[j].priority
 }
 
 // 绑定swap方法
@@ -64,12 +64,39 @@ func findKthLargest(nums []int, k int) int {
 	}
 	heap.Init(&pq)
 	var i int
-	for pq.Len() > 0{
+	for pq.Len() > 0 {
 		i++
 		v := heap.Pop(&pq).(*Item)
-		if i == k{
+		if i == k {
 			return v.value
 		}
 	}
 	return -1
+}
+
+//合并2个有序链表
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	pq := make(PriorityQueue, m+n)
+	i := 0
+	for ; i < m; i++ {
+		pq[i] = &Item{
+			value:    nums1[i],
+			priority: nums1[i],
+			index:    i,
+		}
+	}
+	for ; i < m+n; i++ {
+		pq[i] = &Item{
+			value:    nums2[i],
+			priority: nums2[i],
+			index:    i,
+		}
+	}
+	heap.Init(&pq)
+	var j int
+	for pq.Len() > 0 {
+		v := heap.Pop(&pq).(*Item)
+		nums1[j] = v.value
+		j++
+	}
 }

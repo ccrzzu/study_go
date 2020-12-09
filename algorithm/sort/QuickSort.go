@@ -14,6 +14,7 @@ func recurSort(a []int, left, right int) {
 		recurSort(a, partIndex+1, right)
 	}
 }
+
 func partition(a []int, left, right int) int {
 	for left < right {
 		for left < right && a[left] <= a[right] {

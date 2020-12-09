@@ -162,14 +162,16 @@ func deleteNode(node *ListNode) {
 
 //删除链表中的某节点,返回头节点
 func deleteNodeReturnHead(head *ListNode, val int) *ListNode {
-	tmp := head
-	for tmp.Next != nil{
-		if tmp.Next.Val == val{
-			tmp.Val = tmp.Next.Val
-			tmp.Next = tmp.Next.Next
+	dummy := &ListNode{0,head}
+	first := dummy
+	second := dummy.Next
+	for second != nil{
+		if second.Val == val{
+			first.Next = second.Next
 			break
 		}
-		tmp = tmp.Next
+		first = first.Next
+		second = second.Next
 	}
-	return head
+	return dummy.Next
 }
