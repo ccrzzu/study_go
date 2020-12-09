@@ -1,7 +1,7 @@
 package main
 
 import (
-	"MyProject/algorithm/dynamic_programming"
+	"MyProject/algorithm/array"
 	"fmt"
 )
 
@@ -30,5 +30,6 @@ func main() {
 	//fmt.Println(algorithm.MaxProfit_k_2([]int{3,3,5,0,0,3,1,4}))
 	//fmt.Println(dynamic_programming.MaxProfit_k_s(2,[]int{2,4,1}))
 	//fmt.Println(double_pointer.TwoSum([]int{3,2,4},6))
-	fmt.Println(dynamic_programming.SuperEggDrop(2,6))
+	//fmt.Println(dynamic_programming.SuperEggDrop(2,6))
+	fmt.Println(array.ArrSearch([]int{3,2,1},1))
 }
