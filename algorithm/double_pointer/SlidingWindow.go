@@ -2,6 +2,7 @@ package double_pointer
 
 import "math"
 
+//一个字符串包含另一个字符串所有字母的最小子串
 func minWindow(s string, t string) string {
 	window := map[byte]int{}
 	need := map[byte]int{}
@@ -41,6 +42,7 @@ func minWindow(s string, t string) string {
 	return ""
 }
 
+//判断 s2 中是否包含s1的排列
 func checkInclusion(s1 string, s2 string) bool {
 	window := map[byte]int{}
 	need := map[byte]int{}
@@ -75,6 +77,7 @@ func checkInclusion(s1 string, s2 string) bool {
 	return false
 }
 
+//找出所有字母异位词
 func findAnagrams(s string, p string) []int {
 	window := map[byte]int{}
 	need := map[byte]int{}
@@ -110,19 +113,58 @@ func findAnagrams(s string, p string) []int {
 	return res
 }
 
+//最长无重复字符的子串
 func lengthOfLongestSubstring(s string) int {
 	window := map[byte]int{}
-	left,right,res := 0,0,0
-	for right < len(s){
+	left, right, res := 0, 0, 0
+	for right < len(s) {
 		rightChar := s[right]
 		right++
 		window[rightChar]++
-		for window[rightChar] > 1{
+		for window[rightChar] > 1 {
 			leftChar := s[left]
 			left++
 			window[leftChar]--
 		}
-		res = int(math.Max(float64(res),float64(right -left)))
+		res = int(math.Max(float64(res), float64(right-left)))
 	}
 	return res
+}
+
+//滑动窗口内的最大值 暴力解法
+func maxSlidingWindowBL(nums []int, k int) []int {
+	len := len(nums)
+	result := []int{}
+	for i := 0; i < len-k+1; i++ {
+		max := math.MinInt64
+		for j := i; j < i+k; j++ {
+			if nums[j] > max {
+				max = nums[j]
+			}
+		}
+		result = append(result, max)
+	}
+	return result
+}
+
+//滑动窗口内的最大值 双端队列解法
+func maxSlidingWindow(nums []int, k int) []int {
+	if len(nums) == 0 {
+		return []int{}
+	}
+	queue := []int{}
+	result := []int{}
+	for i := range nums {
+		for i > 0 && len(queue) > 0 && nums[i] > queue[len(queue)-1] {
+			queue = queue[:len(queue)-1]
+		}
+		queue = append(queue, nums[i])
+		if i >= k && nums[i-k] == queue[0] {
+			queue = queue[1:]
+		}
+		if i >= k-1 {
+			result = append(result, queue[0])
+		}
+	}
+	return result
 }

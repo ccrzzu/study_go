@@ -60,6 +60,19 @@ func hasCycle(head *ListNode) bool {
 	return false
 }
 
+//判断链表是否有环 by hash
+func hasCycleByHash(head *ListNode) bool {
+	m := make(map[*ListNode]int)
+	for head != nil{
+		if _,ok := m[head];ok{
+			return true
+		}
+		m[head] = 1
+		head = head.Next
+	}
+	return false
+}
+
 //给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
 func detectCycle(head *ListNode) *ListNode {
 	fast, slow := &ListNode{}, &ListNode{}
@@ -98,8 +111,8 @@ func middleNode(head *ListNode) *ListNode {
 
 //删除链表倒数第n个节点
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	fast, slow := &ListNode{}, &ListNode{}
-	fast, slow = head, head
+	//fast, slow := &ListNode{}, &ListNode{}
+	fast, slow := head, head
 	for n > 0 {
 		fast = fast.Next
 		n--
@@ -113,4 +126,52 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 	slow.Next = slow.Next.Next
 	return head
+}
+
+//合并两个有序链表
+func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
+	pre := &ListNode{}
+	result := pre
+	for l1 != nil && l2 != nil {
+		if l1.Val <= l2.Val {
+			pre.Next = l1
+			l1 = l1.Next
+		} else {
+			pre.Next = l2
+			l2 = l2.Next
+		}
+		pre = pre.Next
+	}
+	if l1 != nil {
+		pre.Next = l1
+	} else {
+		pre.Next = l2
+	}
+	return result.Next
+}
+
+//删除链表中的某节点
+func deleteNode(node *ListNode) {
+	if node == nil{
+		return
+	}
+
+	node.Val = node.Next.Val
+	node.Next = node.Next.Next
+}
+
+//删除链表中的某节点,返回头节点
+func deleteNodeReturnHead(head *ListNode, val int) *ListNode {
+	dummy := &ListNode{0,head}
+	first := dummy
+	second := dummy.Next
+	for second != nil{
+		if second.Val == val{
+			first.Next = second.Next
+			break
+		}
+		first = first.Next
+		second = second.Next
+	}
+	return dummy.Next
 }

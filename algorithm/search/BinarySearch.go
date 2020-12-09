@@ -1,5 +1,10 @@
 package search
 
+import (
+	"fmt"
+	"sort"
+)
+
 //二分查找
 func binarySearch(nums []int, target int) int {
 	left, right := 0, len(nums)-1
@@ -52,4 +57,9 @@ func binarySearchRange(nums []int, target int) []int {
 		res = append(res, right)
 	}
 	return res
+}
+
+//go内部
+func GoSearchInSort()  {
+	fmt.Println(sort.SearchInts([]int{1,3,6,7,8}, 7))
 }

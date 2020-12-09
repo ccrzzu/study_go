@@ -2,6 +2,7 @@ package main
 
 import (
 	"MyProject/algorithm/array"
+	"MyProject/algorithm/sort"
 	"fmt"
 )
 
@@ -31,5 +32,7 @@ func main() {
 	//fmt.Println(dynamic_programming.MaxProfit_k_s(2,[]int{2,4,1}))
 	//fmt.Println(double_pointer.TwoSum([]int{3,2,4},6))
 	//fmt.Println(dynamic_programming.SuperEggDrop(2,6))
-	fmt.Println(array.ArrSearch([]int{3,2,1},1))
+	fmt.Println(array.ArrSearch([]int{3, 2, 1}, 1))
+	//sort.QuickSort([]int{1,2,2,6,5,4,3,3})
+	sort.BubbleSort([]int{1, 2, 2, 6, 5, 4, 3, 3})
 }

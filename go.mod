@@ -1,19 +1,21 @@
 module MyProject
 
-go 1.12
+go 1.14
 
 require (
-	github.com/fasthttp-contrib/websocket v0.0.0-20160511215533-1f3b11f56072 // indirect
+	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
-	github.com/kataras/iris v0.0.2
-	github.com/kataras/iris/v12 v12.1.8 // indirect
-	github.com/mattn/go-colorable v0.1.8 // indirect
-	github.com/moul/http2curl v1.0.0 // indirect
+	github.com/google/gops v0.3.13
+	github.com/json-iterator/go v1.1.10 // indirect
+	github.com/kr/pretty v0.1.0 // indirect
 	github.com/onsi/ginkgo v1.14.2 // indirect
 	github.com/onsi/gomega v1.10.3 // indirect
-	github.com/smartystreets/goconvey v1.6.4 // indirect
-	github.com/valyala/fasthttp v1.17.0 // indirect
-	github.com/yudai/pp v2.0.1+incompatible // indirect
+	github.com/shirou/gopsutil v3.20.11+incompatible // indirect
+	github.com/stretchr/testify v1.6.1 // indirect
+	golang.org/x/net v0.0.0-20201016165138-7b1cca2348c0 // indirect
+	golang.org/x/sys v0.0.0-20201201145000-ef89a241ccb3 // indirect
+	google.golang.org/protobuf v1.25.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )
