@@ -522,24 +522,6 @@ func countLevel(root *TreeNode) int {
 	return level
 }
 
-//二叉查找树、二叉排序树、二叉搜索树
-func isValidBST(root *TreeNode) bool {
-	if root == nil {
-		return true
-	}
-	return isBSTByDG(root, math.MinInt64, math.MaxInt64)
-}
-
-func isBSTByDG(root *TreeNode, min, max int) bool {
-	if root == nil {
-		return true
-	}
-	if root.Val <= min || root.Val >= max {
-		return false
-	}
-	return isBSTByDG(root.Left, min, root.Val) && isBSTByDG(root.Right, root.Val, max)
-}
-
 //二叉查找树查找某个元素 递归解法
 func searchBST1(root *TreeNode, val int) *TreeNode {
 	if root == nil {
@@ -610,19 +592,90 @@ func deleteMinNode(root *TreeNode) *TreeNode {
 }
 
 //树的剪枝
-func pruneTree(root *TreeNode) *TreeNode  {
+func pruneTree(root *TreeNode) *TreeNode {
 	return deal(root)
 }
 
 func deal(node *TreeNode) *TreeNode {
-	if node == nil{
+	if node == nil {
 		return nil
 	}
 	node.Left = deal(node.Left)
 	node.Right = deal(node.Right)
 	//如果这个节点的左右节点都可以剪，且当前节点值也为0，则当前节点为nil，可被整体剪
-	if node.Left == nil && node.Right == nil && node.Val == 0{
+	if node.Left == nil && node.Right == nil && node.Val == 0 {
 		return nil
 	}
 	return node
+}
+
+//二叉树的中序遍历
+func inorderTraversalByDG(root *TreeNode) []int {
+	res := []int{}
+	var dfs func(*TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		dfs(node.Left)
+		res = append(res, node.Val)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return res
+}
+
+//二叉树的中序遍历
+func inorderTraversalByStack(root *TreeNode) []int {
+	res := []int{}
+	stack := []*TreeNode{}
+	for root != nil || len(stack) > 0 {
+		if root.Left != nil {
+			stack = append(stack, root)
+			root = root.Left
+		} else {
+			node := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			res = append(res, node.Val)
+			root = node.Right
+		}
+	}
+	return res
+}
+
+//二叉树的最大路径和
+//思想计算每个节点的最大贡献值，就是他本身加上左右子树不为负的最大贡献值
+//然后最大路径和就是本身节点的值加上左右子树的最大贡献值之和
+//设定一个变量，一直更新即可得到最大路径和
+func maxPathSum(root *TreeNode) int {
+	sum := math.MinInt64
+	var maxGain func(*TreeNode) int
+	maxGain = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		leftGain := math.Max(float64(maxGain(node.Left)), 0)
+		rightGain := math.Max(float64(maxGain(node.Right)), 0)
+		sum = int(math.Max(float64(sum), float64(node.Val)+leftGain+rightGain))
+		return node.Val + int(math.Max(leftGain, rightGain))
+	}
+	maxGain(root)
+	return sum
+}
+
+//二叉树中任意2个节点之间最远距离，也就是边的数目最大
+func diameterOfBinaryTree(root *TreeNode) int {
+	sum := 0
+	var dfs func(*TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		left := dfs(node.Left)
+		right := dfs(node.Right)
+		sum = int(math.Max(float64(sum), float64(left+right)))
+		return int(math.Max(float64(left), float64(right))) + 1
+	}
+	dfs(root)
+	return sum
 }

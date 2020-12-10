@@ -11,6 +11,42 @@ import (
  */
 //基于这个特征，就意味着二叉搜索树的左子树比右子树小，以及其中序遍历是生序序列等可利用之处解决相关问题
 
+//判断二叉搜索树的有效性
+func isValidBST(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	return isBSTByDG(root, math.MinInt64, math.MaxInt64)
+}
+func isBSTByDG(root *TreeNode, min, max int) bool {
+	if root == nil {
+		return true
+	}
+	if root.Val <= min || root.Val >= max {
+		return false
+	}
+	return isBSTByDG(root.Left, min, root.Val) && isBSTByDG(root.Right, root.Val, max)
+}
+
+func isValidBST2(root *TreeNode) bool {
+	var dfs func(*TreeNode, *TreeNode, *TreeNode) bool
+	dfs = func(node, min, max *TreeNode) bool {
+		if node == nil {
+			return true
+		}
+		//左子树不能超过最大值
+		if max != nil && node.Val >= max.Val {
+			return false
+		}
+		//右子树不能小于最小值
+		if min != nil && node.Val <= min.Val {
+			return false
+		}
+		return dfs(node.Left, min, node) && dfs(node.Right, node, max)
+	}
+	return dfs(root, nil, nil)
+}
+
 //二叉搜索树上的第k小元素
 func kthSmallest(root *TreeNode, k int) int {
 	res, rank := 0, 0
@@ -146,11 +182,11 @@ func findTargetByStackAndTowPoint(root *TreeNode, k int) bool {
 	}
 	stack := []*TreeNode{}
 	arr := []int{}
-	for root != nil || len(stack) > 0{
-		if root != nil{
-			stack  = append(stack, root)
+	for root != nil || len(stack) > 0 {
+		if root != nil {
+			stack = append(stack, root)
 			root = root.Left
-		}else {
+		} else {
 			node := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 			arr = append(arr, node.Val)
@@ -169,4 +205,25 @@ func findTargetByStackAndTowPoint(root *TreeNode, k int) bool {
 		}
 	}
 	return false
+}
+
+//检查一棵树是否是对称二叉树
+//思想是 两指针操作，分别指向子树的左右
+func isSymmetricByTowPointDG(root *TreeNode) bool {
+	var check func(*TreeNode, *TreeNode) bool
+	check = func(p, q *TreeNode) bool {
+		if p == nil && q == nil {
+			return true
+		}
+		if p == nil || q == nil {
+			return false
+		}
+		return p.Val == q.Val && check(p.Left, q.Right) && check(p.Right, q.Left)
+	}
+	return check(root, root)
+}
+
+func isSymmetricByIter(root *TreeNode) bool {
+	l,r : =root,root
+	
 }
