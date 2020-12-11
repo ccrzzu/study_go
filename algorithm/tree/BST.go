@@ -224,6 +224,35 @@ func isSymmetricByTowPointDG(root *TreeNode) bool {
 }
 
 func isSymmetricByIter(root *TreeNode) bool {
-	l,r : =root,root
-	
+	if root == nil{
+		return true
+	}
+	if root.Left == nil && root.Right == nil {
+		return true
+	}
+	if root.Left == nil || root.Right == nil {
+		return false
+	}
+	if root.Left.Val != root.Right.Val {
+		return false
+	}
+	q := []*TreeNode{root.Left, root.Right}
+	for len(q) > 0 {
+		q1, q2 := q[len(q)-1], q[len(q)-2]
+		q = q[:len(q)-2]
+		if q1 == nil && q2 == nil {
+			continue
+		}
+		if q1 == nil || q2 == nil {
+			return false
+		}
+		if q1.Val != q2.Val {
+			return false
+		}
+		q = append(q, q1.Left)
+		q = append(q, q2.Right)
+		q = append(q, q1.Right)
+		q = append(q, q2.Left)
+	}
+	return true
 }
