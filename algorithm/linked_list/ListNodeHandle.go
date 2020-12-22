@@ -5,18 +5,16 @@ type ListNode struct {
 	Next *ListNode
 }
 
-//反转链表
+//反转链表 或者称倒排
 func ReverseList(head *ListNode) *ListNode {
-	var pre, cur *ListNode
-	pre = nil
-	cur = head
+	var pre *ListNode
+	cur := head
 	for cur != nil {
 		next := cur.Next
 		cur.Next = pre
 		pre = cur
 		cur = next
 	}
-
 	return pre
 }
 
@@ -63,8 +61,8 @@ func hasCycle(head *ListNode) bool {
 //判断链表是否有环 by hash
 func hasCycleByHash(head *ListNode) bool {
 	m := make(map[*ListNode]int)
-	for head != nil{
-		if _,ok := m[head];ok{
+	for head != nil {
+		if _, ok := m[head]; ok {
 			return true
 		}
 		m[head] = 1
@@ -74,6 +72,7 @@ func hasCycleByHash(head *ListNode) bool {
 }
 
 //给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+//注意有可能fast指针走了环的很多圈才和slow相遇
 func detectCycle(head *ListNode) *ListNode {
 	fast, slow := &ListNode{}, &ListNode{}
 	fast = head
@@ -86,6 +85,7 @@ func detectCycle(head *ListNode) *ListNode {
 			break
 		}
 	}
+	//上一步的结束有可能不是fast==slow，所以要有这一步的校验
 	if fast == nil || fast.Next == nil {
 		return nil
 	}
@@ -152,7 +152,7 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 
 //删除链表中的某节点
 func deleteNode(node *ListNode) {
-	if node == nil{
+	if node == nil {
 		return
 	}
 
@@ -162,11 +162,11 @@ func deleteNode(node *ListNode) {
 
 //删除链表中的某节点,返回头节点
 func deleteNodeReturnHead(head *ListNode, val int) *ListNode {
-	dummy := &ListNode{0,head}
+	dummy := &ListNode{0, head}
 	first := dummy
 	second := dummy.Next
-	for second != nil{
-		if second.Val == val{
+	for second != nil {
+		if second.Val == val {
 			first.Next = second.Next
 			break
 		}
@@ -174,4 +174,63 @@ func deleteNodeReturnHead(head *ListNode, val int) *ListNode {
 		second = second.Next
 	}
 	return dummy.Next
+}
+
+//给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+//如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+//您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+//个位在头结点
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	i, j := l1, l2
+	head := new(ListNode)
+	tmp := head
+	var carry, digit int
+	for i != nil || j != nil || carry > 0 {
+		digit = carry
+		if i != nil {
+			digit += i.Val
+			i = i.Next
+		}
+		if j != nil {
+			digit += j.Val
+			j = j.Next
+		}
+		if digit >= 10 {
+			carry = 1
+		} else {
+			carry = 0
+		}
+		tmp.Next = new(ListNode)
+		tmp = tmp.Next
+		tmp.Val = digit % 10
+	}
+	return head.Next
+}
+
+//两个链表相加，个位在尾结点，比上难
+func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
+	l1, l2 := ReverseList(head1), ReverseList(head2)
+	head := new(ListNode)
+	tmp := head
+	var carry, digit int
+	for l1 != nil || l2 != nil || carry > 0 {
+		digit = carry
+		if l1 != nil {
+			digit += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			digit += l2.Val
+			l2 = l2.Next
+		}
+		if digit >= 10 {
+			carry = 1
+		} else {
+			carry = 0
+		}
+		tmp.Next = new(ListNode)
+		tmp = tmp.Next
+		tmp.Val = digit % 10
+	}
+	return ReverseList(head.Next)
 }

@@ -1,9 +1,11 @@
 package test
 
 import (
+	"MyProject/algorithm/array"
 	"container/heap"
 	"container/list"
 	"fmt"
+	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -197,4 +199,27 @@ func TestNativeHeap(t *testing.T) {
 	h1 := &IntHeap{2, 1, 5, 6, 4, 3, 7, 9, 8, 0} // 创建slice
 	sort.Sort(h1)
 	fmt.Println(h1)
+}
+
+func TestMap(t *testing.T) {
+	nums := []int{4, 3, 2, 7, 8, 2, 3, 1}
+	res := array.FindDisappearedNumbers(nums)
+	fmt.Println(res)
+}
+
+func TestForString(t *testing.T) {
+	a := "123"
+	for i, item := range a {
+		fmt.Println(reflect.TypeOf(item),reflect.TypeOf(a[i]))
+		fmt.Println(item, item-'0')
+	}
+}
+
+func TestTime(t *testing.T)  {
+	now := time.Now()
+	n2 := time.Now().Add(10*time.Minute)
+	fmt.Println(now.Before(n2),n2.After(now))
+	nowHour := time.Date(now.Year(), now.Month(), now.Day(), 15, 0, 0, 0, now.Location())
+	fmt.Println(nowHour)
+	fmt.Println(nowHour.After(now))
 }

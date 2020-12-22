@@ -2,6 +2,7 @@ package main
 
 import (
 	"MyProject/algorithm/array"
+	"MyProject/algorithm/stack"
 	"MyProject/algorithm/tree"
 	"fmt"
 	"testing"
@@ -37,4 +38,10 @@ func TestArrayMerge(t *testing.T) {
 	B := []int{2, 5, 6}
 	n := 3
 	array.Merge(A, m, B, n)
+}
+
+func TestIsPopOrder(t *testing.T) {
+	pushArr := []int{1, 2, 3, 4, 5}
+	popArr := []int{4,5,3,2,1}
+	fmt.Println(stack.IsPopOrder(pushArr, popArr))
 }

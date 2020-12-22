@@ -2,6 +2,7 @@ package array
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strings"
 )
@@ -278,4 +279,69 @@ func Merge2(nums1 []int, m int, nums2 []int, n int) {
 		i2--
 		tail--
 	}
+}
+
+//数组中未出现的元素的集合
+func FindDisappearedNumbers(nums []int) []int {
+	res := []int{}
+	m := make([]int, len(nums)+1)
+	for i := 0; i < len(nums); i++ {
+		m[nums[i]]++
+	}
+	for i := 1; i <= len(nums); i++ {
+		if m[i] == 0 {
+			res = append(res, i)
+		}
+	}
+	return res
+}
+
+//遍历输入数组的每个元素一次。
+//我们将把 |nums[i]|-1 索引位置的元素标记为负数。即 nums[|nums[i] |- 1] \times -1nums[∣nums[i]∣−1]×−1 。
+//然后遍历数组，若当前数组元素 nums[i] 为负数，说明我们在数组中存在数字 i+1。
+//巧妙：对应位置置为负数，不影响数组对应位置的数据的判断
+func FindDisappearedNumbers2(nums []int) []int {
+	for i := 0; i < len(nums); i++ {
+		cur := int(math.Abs(float64(nums[i])))
+		if nums[cur-1] > 0 {
+			//nums[cur-1] = -nums[cur-1]
+			nums[cur-1] *= -1
+		}
+	}
+	res := []int{}
+	for i := 1; i <= len(nums); i++ {
+		if nums[i-1] > 0 {
+			res = append(res, i)
+		}
+	}
+	return res
+}
+
+//数组的最大子序列的和
+//给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+//思路：动态规划的思想，对于i位置，其子序列和最大值为加上i-1的位置的子序列和最大值 和 其本身的比较
+func maxSubArray(nums []int) int {
+	max := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i]+nums[i-1] > nums[i] {
+			nums[i] = nums[i] + nums[i-1]
+		}
+		if nums[i] > max {
+			max = nums[i]
+		}
+	}
+	return max
+}
+
+//数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+func MoreThanHalfNum_Solution(numbers []int) int {
+	m := map[int]int{}
+	n := len(numbers) / 2
+	for i := 0; i < len(numbers); i++ {
+		m[numbers[i]]++
+		if m[numbers[i]] > n {
+			return numbers[i]
+		}
+	}
+	return 0
 }

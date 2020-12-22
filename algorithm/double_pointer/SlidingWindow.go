@@ -114,6 +114,8 @@ func findAnagrams(s string, p string) []int {
 }
 
 //最长无重复字符的子串
+//给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+//例如：s = "abcabcbb" 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
 func lengthOfLongestSubstring(s string) int {
 	window := map[byte]int{}
 	left, right, res := 0, 0, 0
@@ -123,6 +125,24 @@ func lengthOfLongestSubstring(s string) int {
 		window[rightChar]++
 		for window[rightChar] > 1 {
 			leftChar := s[left]
+			left++
+			window[leftChar]--
+		}
+		res = int(math.Max(float64(res), float64(right-left)))
+	}
+	return res
+}
+
+//数组的最长无重复子串的长度
+func lengthOfLongestSubInArray(arr []int) int {
+	window := map[int]int{}
+	left, right, res := 0, 0, 0
+	for right < len(arr) {
+		rightChar := arr[right]
+		right++
+		window[rightChar]++
+		for window[rightChar] > 1 {
+			leftChar := arr[left]
 			left++
 			window[leftChar]--
 		}

@@ -223,8 +223,9 @@ func isSymmetricByTowPointDG(root *TreeNode) bool {
 	return check(root, root)
 }
 
+//检查一棵树是否是对称二叉树,通过迭代
 func isSymmetricByIter(root *TreeNode) bool {
-	if root == nil{
+	if root == nil {
 		return true
 	}
 	if root.Left == nil && root.Right == nil {
@@ -255,4 +256,30 @@ func isSymmetricByIter(root *TreeNode) bool {
 		q = append(q, q2.Left)
 	}
 	return true
+}
+
+//不同的二叉搜索树的个数
+func numTrees(n int) int {
+	G := make([]int, n+1)
+	G[0], G[1] = 1, 1
+	for i := 2; i <= n; i++ {
+		for j := 1; j <= i; j++ {
+			G[i] += G[j-1] * G[i-j]
+		}
+	}
+	return G[n]
+}
+
+//二叉搜索树的插入操作
+func insertIntoBST(root *TreeNode, val int) *TreeNode {
+	if root == nil {
+		return &TreeNode{Val: val}
+	}
+	if val > root.Val {
+		root.Right = insertIntoBST(root.Right, val)
+	}
+	if val < root.Val {
+		root.Left = insertIntoBST(root.Left, val)
+	}
+	return root
 }

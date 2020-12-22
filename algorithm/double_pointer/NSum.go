@@ -2,7 +2,7 @@ package double_pointer
 
 import "sort"
 
-//两数相加等于目标数
+//两数之和，相加等于目标数，输入的数组无序，下标从0开始
 func TwoSum(nums []int, target int) []int {
 	nMap := make(map[int]int)
 	for i, item := range nums {

@@ -3,7 +3,7 @@ package heap
 import "container/heap"
 
 type Item struct {
-	value    int // 优先级队列中的数据，可以是任意类型，这里使用string
+	value    int // 优先级队列中的数据，可以是任意类型，这里使用int
 	priority int // 优先级队列中节点的优先级
 	index    int // index是该节点在堆中的位置
 }
