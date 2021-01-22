@@ -54,3 +54,21 @@ func fibonacciByIter2(n int) int {
 	}
 	return result[n]
 }
+
+func GenFibValue()  {
+	f := makeFibGen()
+	for i := 0; i < 10; i++ {
+		println(f())
+	}
+}
+
+//闭包
+func makeFibGen() func() int {
+	f1 := 0
+	f2 := 1
+	return func() (fib int) {
+		fib = f1
+		f2, f1 = (f1 + f2), f2
+		return fib
+	}
+}

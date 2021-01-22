@@ -12,6 +12,7 @@ import (
 	"testing"
 	"time"
 	"unicode/utf8"
+	"unsafe"
 )
 
 func say(s string) {
@@ -80,6 +81,8 @@ func TestStrings(t *testing.T) {
 	fmt.Println("strings.TrimLeft:", left)
 	prefix := strings.TrimPrefix("hello Tom", "hl")
 	fmt.Println("strings.TrimPrefix:", prefix)
+	fmt.Println(strings.Join([]string{"1", "2", "3"}, ","))
+	fmt.Println(strings.Join([]string{}, ","))
 }
 
 func TestBase(t *testing.T) {
@@ -210,16 +213,120 @@ func TestMap(t *testing.T) {
 func TestForString(t *testing.T) {
 	a := "123"
 	for i, item := range a {
-		fmt.Println(reflect.TypeOf(item),reflect.TypeOf(a[i]))
+		fmt.Println(reflect.TypeOf(item), reflect.TypeOf(a[i]))
 		fmt.Println(item, item-'0')
 	}
 }
 
-func TestTime(t *testing.T)  {
+func TestTime(t *testing.T) {
 	now := time.Now()
-	n2 := time.Now().Add(10*time.Minute)
-	fmt.Println(now.Before(n2),n2.After(now))
+	n2 := time.Now().Add(10 * time.Minute)
+	fmt.Println(now.Before(n2), n2.After(now))
 	nowHour := time.Date(now.Year(), now.Month(), now.Day(), 15, 0, 0, 0, now.Location())
 	fmt.Println(nowHour)
 	fmt.Println(nowHour.After(now))
+}
+
+func TestDefer1(t *testing.T) {
+	for i := 0; i < 5; i++ {
+		defer fmt.Println(i)
+	}
+}
+
+func TestDefer2(t *testing.T) {
+	for i := 0; i < 5; i++ {
+		defer func() {
+			fmt.Println(i)
+		}()
+	}
+}
+
+func TestDefer3(t *testing.T) {
+	for i := 0; i < 5; i++ {
+		defer func(j int) {
+			fmt.Println(j)
+		}(i)
+	}
+}
+
+func TestDefer4(t *testing.T) {
+	var j int
+	for i := 0; i < 5; i++ {
+		j = i
+		fmt.Println(&j)
+		defer func() {
+			fmt.Println(j)
+		}()
+	}
+}
+
+func TestTypeAssertion(t *testing.T) {
+	var a interface{}
+	fmt.Printf("%T\n", a)
+	a = 1
+	b, ok := a.(int)
+	fmt.Println(b, ok)
+	fmt.Printf("%T\n", a)
+	switch a.(type) {
+	case int:
+		fmt.Println("a type is int")
+	case nil:
+		fmt.Println("a type is nil")
+	case interface{}:
+		fmt.Println("a type is interface")
+	}
+
+	a1 := interface{}(10)
+
+	switch a1.(type) {
+	case int:
+		fmt.Println("参数的类型是 int")
+	case string:
+		fmt.Println("参数的类型是 string")
+	case interface{}:
+		fmt.Println("参数的类型是 interface")
+	}
+}
+
+func AntherExFunc(n int) func() {
+	n++
+	return func() {
+		fmt.Println(n)
+	}
+}
+
+func ExFunc(n int) func() {
+	return func() {
+		n++
+		fmt.Println(n)
+	}
+}
+
+func TestClosures(t *testing.T) {
+	f := AntherExFunc(20)
+	fmt.Printf("%p\n", f)
+	f()
+	f()
+}
+
+func TestClosure2(t *testing.T) {
+	s := []string{"a", "b", "c"}
+	for _, v := range s {
+		go func() {
+			fmt.Println(v)
+		}()
+	}
+	time.Sleep(time.Second * 1)
+}
+
+func TestUnsafe(t *testing.T) {
+	num := 5
+	numPointer := &num
+	fmt.Println(numPointer, *numPointer)
+	//*numPointer = 1.23
+	flnum := (*float32)(unsafe.Pointer(numPointer))
+	fmt.Println(*flnum == 5)
+	fmt.Println(unsafe.Sizeof(flnum))
+	//fmt.Println(unsafe.Offsetof(numPointer))
+
 }

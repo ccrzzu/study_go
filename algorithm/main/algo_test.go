@@ -42,6 +42,6 @@ func TestArrayMerge(t *testing.T) {
 
 func TestIsPopOrder(t *testing.T) {
 	pushArr := []int{1, 2, 3, 4, 5}
-	popArr := []int{4,5,3,2,1}
+	popArr := []int{4, 5, 3, 2, 1}
 	fmt.Println(stack.IsPopOrder(pushArr, popArr))
 }
