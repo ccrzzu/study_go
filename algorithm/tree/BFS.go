@@ -1,6 +1,7 @@
 package tree
 
 import (
+	"MyProject/algorithm/array"
 	"container/list"
 	"fmt"
 )
@@ -87,17 +88,17 @@ func levelOrderByDG(root *TreeNode) [][]int {
 func isCompleteTree(root *TreeNode) bool {
 	queue := []*TreeNode{root}
 	lastIsNil := false
-	for len(queue) > 0{
+	for len(queue) > 0 {
 		node := queue[0]
 		queue = queue[1:]
-		if node == nil{
+		if node == nil {
 			lastIsNil = true
-		}else {
+		} else {
 			if lastIsNil {
 				return false
 			}
-			queue = append(queue,node.Left)
-			queue = append(queue,node.Right)
+			queue = append(queue, node.Left)
+			queue = append(queue, node.Right)
 		}
 	}
 	return true
@@ -220,4 +221,36 @@ func OpenLockByBidirectional(deadends []string, target string) int {
 		queueTarget = tmp
 	}
 	return -1
+}
+
+//之字形遍历二叉树
+func levelOrderInZhi(root *TreeNode) [][]int {
+	result := [][]int{}
+	if root == nil {
+		return result
+	}
+	queue := []*TreeNode{root}
+	flag := true
+	for len(queue) > 0 {
+		currentLevel := make([]int, 0)
+		qlen := len(queue)
+		for i := 0; i < qlen; i++ {
+			node := queue[0]
+			queue = queue[1:]
+			currentLevel = append(currentLevel, node.Val)
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		if flag {
+			result = append(result, currentLevel)
+		} else {
+			result = append(result, array.ReverseArray(currentLevel))
+		}
+		flag = !flag
+	}
+	return result
 }

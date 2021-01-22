@@ -67,7 +67,7 @@ func ArrSearch(A []int, target int) int {
 }
 
 //反转数组
-func ReverseArray(arr []int) {
+func ReverseArray(arr []int) []int{
 	//第一种思路：
 	for i := 0; i < len(arr)/2; i++ {
 		arr[i], arr[len(arr)-i-1] = arr[len(arr)-i-1], arr[i]
@@ -76,6 +76,7 @@ func ReverseArray(arr []int) {
 	for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
 		arr[i], arr[j] = arr[j], arr[i]
 	}*/
+	return arr
 }
 
 //加一操作
