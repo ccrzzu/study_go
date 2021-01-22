@@ -9,9 +9,9 @@ import (
 
 //旋转数组
 func rotateArr(arr []int, k int) {
-	reverseArray(arr)
-	reverseArray(arr[:k%len(arr)])
-	reverseArray(arr[k%len(arr):])
+	ReverseArray(arr)
+	ReverseArray(arr[:k%len(arr)])
+	ReverseArray(arr[k%len(arr):])
 }
 
 func rotate(nums []int, k int) {
@@ -67,11 +67,15 @@ func ArrSearch(A []int, target int) int {
 }
 
 //反转数组
-func reverseArray(arr []int) {
+func ReverseArray(arr []int) {
+	//第一种思路：
 	for i := 0; i < len(arr)/2; i++ {
 		arr[i], arr[len(arr)-i-1] = arr[len(arr)-i-1], arr[i]
-
 	}
+	/*//第二种思路：
+	for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
+		arr[i], arr[j] = arr[j], arr[i]
+	}*/
 }
 
 //加一操作
