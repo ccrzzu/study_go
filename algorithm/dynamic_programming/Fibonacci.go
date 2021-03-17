@@ -1,9 +1,9 @@
 package dynamic_programming
 
 func Fibonacci(n int) int {
-	/*memo := make(map[int]int)
-	return fibonacciByDG(memo, n)*/
-	return fibonacciByIter(n)
+	memo := make(map[int]int)
+	return fibonacciByDG(memo, n)
+	//return fibonacciByIter(n)
 }
 
 func fibonacciByDG(memo map[int]int, n int) int {

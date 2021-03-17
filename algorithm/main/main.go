@@ -1,14 +1,14 @@
 package main
 
 import (
-	"MyProject/algorithm/stack"
+	"MyProject/algorithm/dynamic_programming"
 	"fmt"
 )
 
 func main() {
 	//fmt.Println("CoinChangeByDG:", algorithm.CoinChange([]int{186, 419, 83, 408}, 6249))
 	//fmt.Println("CoinChangeByIter:", algorithm.CoinChangeByIter([]int{186, 419, 83, 408}, 6249))
-	//fmt.Println(algorithm.Fibonacci(6))
+	//fmt.Println(dynamic_programming.Fibonacci(92))
 	//fmt.Println(algorithm.FindNumberOfLIS([]int{1,2,4,3,5,4,7,2}))
 	//fmt.Println(algorithm.LengthOfLIS([]int{1,2,4,3,5,4,7,2}))
 	//fmt.Println(algorithm.SplitToString([]int{1,2,3,4,5,6,7},","))
@@ -34,5 +34,6 @@ func main() {
 	//fmt.Println(array.ArrSearch([]int{3, 2, 1}, 1))
 	//sort.QuickSort([]int{1,2,2,6,5,4,3,3})
 	//sort.BubbleSort([]int{1, 2, 2, 6, 5, 4, 3, 3})
-	fmt.Println(stack.SumSubarrayMins([]int{3, 1, 2, 4}))
+	//fmt.Println(stack.SumSubarrayMins([]int{3, 1, 2, 4}))
+	fmt.Println(dynamic_programming.ClimbStairsByDynamicProgram(90))
 }
