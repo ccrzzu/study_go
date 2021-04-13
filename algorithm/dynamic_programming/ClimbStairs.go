@@ -26,14 +26,24 @@ func ClimbStairsByRecur(n int) int {
  * 动态规划解法，找到最优子结构，列出动态转移方程dp[i] = dp[i - 1] + dp[ i - 2];
  */
 func ClimbStairsByDynamicProgram(n int) int {
-	/*dp := map[int]int{0: 1, 1: 1, 2: 2}
-	for i := 3; i <= n; i++ {
-		dp[i] = dp[i-1] + dp[i-2]
+	/*
+		dp := map[int]int{0: 1, 1: 1, 2: 2}
+		for i := 3; i <= n; i++ {
+			dp[i] = dp[i-1] + dp[i-2]
+		}
+		return dp[n]
+	*/
+	//dp := []int{0, 1, 2}
+	//for i := 3; i <= n; i++ {
+	//	dp = append(dp, 0)
+	//}
+	dp := make([]int, n+1)
+	dp[0] = 1
+	if n >= 1 {
+		dp[1] = 1
 	}
-	return dp[n]*/
-	dp := []int{0, 1, 2}
-	for i := 3; i <= n; i++ {
-		dp = append(dp, 0)
+	if n >= 2 {
+		dp[2] = 2
 	}
 	for i := 3; i <= n; i++ {
 		dp[i] = dp[i-1] + dp[i-2]

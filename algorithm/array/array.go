@@ -1,7 +1,6 @@
 package array
 
 import (
-	"fmt"
 	"math"
 	"sort"
 	"strings"
@@ -67,7 +66,7 @@ func ArrSearch(A []int, target int) int {
 }
 
 //反转数组
-func ReverseArray(arr []int) []int{
+func ReverseArray(arr []int) []int {
 	//第一种思路：
 	for i := 0; i < len(arr)/2; i++ {
 		arr[i], arr[len(arr)-i-1] = arr[len(arr)-i-1], arr[i]
@@ -237,7 +236,7 @@ func longestCommonPrefix(strs []string) string {
 }
 
 //合并两个排序的数组，合并B到A，形成一个新的有序数组
-func Merge(A []int, m int, B []int, n int) {
+func MergeB2A(A []int, m int, B []int, n int) {
 	var res []int
 	var i, j int
 	for i < m && j < n {
@@ -248,7 +247,7 @@ func Merge(A []int, m int, B []int, n int) {
 			res = append(res, B[j])
 			j++
 		}
-		fmt.Println(res)
+		//fmt.Println(res)
 	}
 	if i < m {
 		res = append(res, A[i:m]...)
@@ -258,6 +257,29 @@ func Merge(A []int, m int, B []int, n int) {
 	}
 	for i, item := range res {
 		A[i] = item
+	}
+}
+
+/*
+ *合并B数组到A数组，原地合并
+ *这个方法不需要申请新的空间，相较与上个方法省了空间，空间复杂度为O(1)
+ */
+func MergeB2AByInPlace(A []int, m int, B []int, n int) {
+	first := m - 1
+	second := n - 1
+
+	for i := m + n - 1; i >= 0; i-- {
+		// B has already been merged.
+		if second < 0 {
+			break
+		}
+		if first >= 0 && A[first] > B[second] {
+			A[i] = A[first]
+			first--
+		} else {
+			A[i] = B[second]
+			second--
+		}
 	}
 }
 

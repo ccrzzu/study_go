@@ -1,8 +1,8 @@
 package main
 
 import (
-	"MyProject/algorithm/dynamic_programming"
 	"fmt"
+	"sync"
 )
 
 func main() {
@@ -35,5 +35,57 @@ func main() {
 	//sort.QuickSort([]int{1,2,2,6,5,4,3,3})
 	//sort.BubbleSort([]int{1, 2, 2, 6, 5, 4, 3, 3})
 	//fmt.Println(stack.SumSubarrayMins([]int{3, 1, 2, 4}))
-	fmt.Println(dynamic_programming.ClimbStairsByDynamicProgram(90))
+	//fmt.Println(dynamic_programming.ClimbStairsByDynamicProgram(90))
+	//a := number{1}
+	//a.print()
+	//fmt.Println(a)
+	/*gen := func(ctx context.Context) <-chan int {
+		dst := make(chan int)
+		n := 1
+		go func() {
+			for {
+				select {
+				case <-ctx.Done():
+					return // returning not to leak the goroutine
+				case dst <- n:
+					n++
+				}
+			}
+		}()
+		return dst
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel() // cancel when we are finished consuming integers
+
+	for n := range gen(ctx) {
+		fmt.Println(n)
+		if n == 5 {
+			break
+		}
+	}*/
+	readChannel := make(chan<- int)
+	close(readChannel)
+	sync.Map{}
+}
+
+type number struct {
+	Age int
+}
+
+func (n number) print() {
+	n.Age = 2
+	fmt.Println(n)
+}
+func (n *number) pprint() {
+	n.Age = 3
+	fmt.Println(*n)
+}
+
+func f() int {
+	t := 5
+	defer func() {
+		t = t + 5
+	}()
+	return t
 }

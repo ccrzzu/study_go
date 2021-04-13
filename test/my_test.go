@@ -250,7 +250,7 @@ func TestDefer3(t *testing.T) {
 }
 
 func TestDefer4(t *testing.T) {
-	var j int
+	var j int // 这行注释与不注释返回结果完全不同
 	for i := 0; i < 5; i++ {
 		j = i
 		fmt.Println(&j)
