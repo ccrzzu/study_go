@@ -4,3 +4,4 @@ conf/*log*
 conf/*.pid
 /tmp
 rtc.center.global
+.vscode
