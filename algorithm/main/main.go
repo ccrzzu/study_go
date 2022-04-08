@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sync"
 )
 
 func main() {
@@ -66,7 +65,6 @@ func main() {
 	}*/
 	readChannel := make(chan<- int)
 	close(readChannel)
-	sync.Map{}
 }
 
 type number struct {

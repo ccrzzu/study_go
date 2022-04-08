@@ -2,7 +2,7 @@ package back_track
 
 import "fmt"
 
-//总：其实 DFS 算法就是回溯算法
+//总：其实 DFS算法就是回溯算法 (DFS,深度优先搜索算法（英語：Depth-First-Search，DFS）是一种用于遍历或搜索树或图的算法。) 
 
 var res [][]int
 
@@ -14,6 +14,7 @@ func Permutations(nums []int) [][]int {
 	return res
 }
 
+// 递归解法
 func permutationsDG(nums, track []int) {
 	if len(track) == len(nums) {
 		tmp := make([]int, len(nums))
@@ -51,7 +52,7 @@ func InSliceIface(v int, sl []int) bool {
 //---------------------------------------------------------------
 // 最终结果
 var result [][]int
-
+// 回溯解法
 func permute(nums []int) [][]int {
 	var pathNums []int
 	var used = make([]bool, len(nums))
@@ -61,7 +62,7 @@ func permute(nums []int) [][]int {
 	return result
 }
 
-// 回溯核心
+// 回溯算法核心部分
 // nums: 原始列表
 // pathNums: 路径上的数字
 // used: 是否访问过
