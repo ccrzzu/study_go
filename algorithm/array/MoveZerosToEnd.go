@@ -1,6 +1,6 @@
 package array
 
-//移动0
+// 将数组0元素移动到末尾，保证其他元素顺序。
 func moveZeroes(nums []int) {
 	k := 0
 	for i := 0; i < len(nums); {

@@ -1,4 +1,4 @@
-module MyProject
+module study_go
 
 go 1.14
 

@@ -28,6 +28,7 @@ func MergeB2A(A []int, m int, B []int, n int) {
 }
 
 /*
+ *看到是排好序的数组，则考虑用双指针策略
  *合并B数组到A数组，原地合并
  *这个方法不需要申请新的空间，相较与上个方法省了空间，空间复杂度为O(1)
  */
@@ -50,7 +51,7 @@ func MergeB2AWithNoNewMem(A []int, m int, B []int, n int) {
 	}
 }
 
-//归并排序逻辑
+//归并排序逻辑备忘
 func MergeSort(nums1 []int, m int, nums2 []int, n int) {
 	i1, i2, tail := m-1, n-1, m+n-1
 	for i1 >= 0 && i2 >= 0 {

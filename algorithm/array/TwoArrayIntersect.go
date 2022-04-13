@@ -39,7 +39,8 @@ func Intersect2(nums1 []int, nums2 []int) []int {
 	return res
 }
 
-// 让两个数组排序后，然后用双指针策略，双指针策略对排好序的数组类型问题是一大招
+// 双指针策略对排好序的数组类型问题是一大招
+// 让两个数组排序后，然后用双指针策略，
 // 解答中我们并没有创建空白数组，因为遍历后的数组其实就没用了
 // 我们可以将相等的元素放入用过的数组中，就为我们节省下了空间
 func intersectAfterSortByTowPoint(nums1 []int, nums2 []int) []int {
