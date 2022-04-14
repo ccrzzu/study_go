@@ -106,7 +106,7 @@ func binarySearchRange(nums []int, target int) []int {
 	return res
 }
 
-// go内部 肯定不能这么写 可以关注一下它的实现方式
+// go内部的实现 面试肯定不能这么写 可以关注一下它的实现方式
 func GoSearchInSort() {
 	fmt.Println(sort.SearchInts([]int{1, 3, 6, 7, 8}, 7))
 }

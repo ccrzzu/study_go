@@ -1,10 +1,10 @@
 package main
 
 import (
-	"MyProject/algorithm/array"
-	"MyProject/algorithm/stack"
-	"MyProject/algorithm/tree"
 	"fmt"
+	"study_go/algorithm/array"
+	"study_go/algorithm/stack"
+	"study_go/algorithm/tree"
 	"testing"
 )
 

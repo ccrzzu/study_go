@@ -1,9 +1,9 @@
 package tree
 
 import (
-	"MyProject/algorithm/array"
 	"container/list"
 	"fmt"
+	"study_go/algorithm/array"
 )
 
 //树的广度优先遍历，或者叫按层序遍历

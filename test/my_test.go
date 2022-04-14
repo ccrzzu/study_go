@@ -1,7 +1,6 @@
 package test
 
 import (
-	"MyProject/algorithm/array"
 	"container/heap"
 	"container/list"
 	"fmt"
@@ -9,6 +8,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"study_go/algorithm/array"
 	"testing"
 	"time"
 	"unicode/utf8"

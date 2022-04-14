@@ -1,13 +1,14 @@
 package main
 
 import (
-	"MyProject/config"
 	"encoding/json"
 	"fmt"
-	"github.com/go-redis/redis"
 	"strconv"
+	"study_go/config"
 	"sync"
 	"time"
+
+	"github.com/go-redis/redis"
 )
 
 func redisClient() (client *redis.Client) {
