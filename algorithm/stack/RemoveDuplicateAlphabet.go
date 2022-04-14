@@ -6,7 +6,7 @@ package stack
  *在 S 上反复执行重复项删除操作，直到无法继续删除。
  *在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
  */
-func removeDuplicates(S string) string {
+func RemoveDuplicates(S string) string {
 	if len(S) == 0 {
 		return ""
 	}
@@ -20,7 +20,7 @@ func removeDuplicates(S string) string {
 	return string(stack)
 }
 
-func removeDuplicates2(S string) string {
+func RemoveDuplicates2(S string) string {
 	stack := []byte{}
 	for i := 0; i < len(S); i++ {
 		if len(stack) > 0 && S[i] == stack[len(stack)-1] {

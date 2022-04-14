@@ -30,3 +30,17 @@ func IsPopOrder2(pushed []int, popped []int) bool {
 	return len(stack) == 0
 	//return len(popped) == 0
 }
+
+func validateStackSequences(pushed []int, popped []int) bool {
+	stack := make([]int, 0)
+	i, j := 0, 0
+	for i < len(pushed) && j < len(popped) {
+		stack = append(stack, pushed[i])
+		for len(stack) > 0 && stack[len(stack)-1] == popped[j] {
+			stack = stack[:len(stack)-1]
+			j++
+		}
+		i++
+	}
+	return len(stack) == 0
+}

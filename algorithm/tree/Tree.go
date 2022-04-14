@@ -10,17 +10,7 @@ import (
 
 var res [][]int
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-type Node struct {
-	Val   int
-	Left  *Node
-	Right *Node
-	Next  *Node
-}
+
 
 type Codec struct {
 	l []string
@@ -538,39 +528,7 @@ func deal(node *TreeNode) *TreeNode {
 	return node
 }
 
-//二叉树的中序遍历
-func inorderTraversalByDG(root *TreeNode) []int {
-	res := []int{}
-	var dfs func(*TreeNode)
-	dfs = func(node *TreeNode) {
-		if node == nil {
-			return
-		}
-		dfs(node.Left)
-		res = append(res, node.Val)
-		dfs(node.Right)
-	}
-	dfs(root)
-	return res
-}
 
-//二叉树的中序遍历
-func inorderTraversalByStack(root *TreeNode) []int {
-	res := []int{}
-	stack := []*TreeNode{}
-	for root != nil || len(stack) > 0 {
-		if root.Left != nil {
-			stack = append(stack, root)
-			root = root.Left
-		} else {
-			node := stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-			res = append(res, node.Val)
-			root = node.Right
-		}
-	}
-	return res
-}
 
 //二叉树的最大路径和
 //思想计算每个节点的最大贡献值，就是他本身加上左右子树不为负的最大贡献值

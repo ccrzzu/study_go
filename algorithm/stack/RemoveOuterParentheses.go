@@ -3,7 +3,7 @@ package stack
 import "strings"
 
 //删除一个字符串的对称的最外层括号
-func removeOuterParentheses(S string) string {
+func RemoveOuterParentheses(S string) string {
 	flag := 0
 	b := 1 //从第几个位开始作为内层算起
 	var res string
@@ -21,7 +21,7 @@ func removeOuterParentheses(S string) string {
 	return res
 }
 
-func removeOuterParentheses2(S string) string {
+func RemoveOuterParentheses2(S string) string {
 	if len(S) == 0 {
 		return ""
 	}

@@ -1,6 +1,6 @@
 package string
 
-import "math/bits"
+//import "math/bits"
 
 //汉明距离
 //两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
@@ -16,5 +16,5 @@ func hammingDistance(x int, y int) int {
 		i = i >> 1
 	}
 	return sum
-	return bits.OnesCount(uint(x^y))
+	//return bits.OnesCount(uint(x^y)) //这是go库自带的方法
 }

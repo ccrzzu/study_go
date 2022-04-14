@@ -40,6 +40,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 检查是否是回文链表
 func CheckListNodes(head *ListNode) bool {
 	//链表区分个数是奇数偶数
 	//偶数的话只需要将后半段反转后与前半段元素逐个作对比
