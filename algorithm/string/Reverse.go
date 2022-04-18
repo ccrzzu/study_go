@@ -1,5 +1,4 @@
-package double_pointer
-
+package string
 
 //反转字符串
 func reverseString(s []byte)  {

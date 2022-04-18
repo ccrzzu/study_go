@@ -1,6 +1,9 @@
 package double_pointer
 
-import "sort"
+import (
+	"math"
+	"sort"
+)
 
 //两数之和，相加等于目标数，输入的数组无序，下标从0开始
 func TwoSum(nums []int, target int) []int {
@@ -30,7 +33,7 @@ func twoSum1(numbers []int, target int) []int {
 	return []int{-1, -1}
 }
 
-//返回值，所有满足的
+// 两数之和，返回值是所有满足的值
 func twoSum2(numbers []int, target int) [][]int {
 	left, right := 0, len(numbers)-1
 	res := [][]int{}
@@ -58,6 +61,7 @@ func twoSum2(numbers []int, target int) [][]int {
 	return res
 }
 
+// 两数之和，返回值是所有满足的值,且不重复
 func twoSumNoRepeat(numbers []int, start, target int) [][]int {
 	left, right := start, len(numbers)-1
 	res := [][]int{}
@@ -85,6 +89,7 @@ func twoSumNoRepeat(numbers []int, start, target int) [][]int {
 	return res
 }
 
+// 三数之和
 func threeSum(nums []int) [][]int {
 	sort.Ints(nums)
 	res := [][]int{}
@@ -102,6 +107,7 @@ func threeSum(nums []int) [][]int {
 	return res
 }
 
+// 三数之和，返回值没有重复的
 func threeSumNoRepeat(nums []int, start, target int) [][]int {
 	res := [][]int{}
 	// 穷举 threeSum 的第一个数
@@ -118,6 +124,7 @@ func threeSumNoRepeat(nums []int, start, target int) [][]int {
 	return res
 }
 
+// 四数之和
 func fourSum(nums []int, target int) [][]int {
 	sort.Ints(nums)
 	res := [][]int{}
@@ -133,4 +140,42 @@ func fourSum(nums []int, target int) [][]int {
 		}
 	}
 	return res
+}
+
+/**
+给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
+返回这三个数的和。
+*/
+func threeSumClosest(nums []int, target int) int {
+	n, res, diff := len(nums), 0, math.MaxInt32
+	if n > 2 {
+		sort.Ints(nums)
+		for i := 0; i < n-2; i++ {
+			//增加这段是为了去除重复计算项
+			if i > 0 && nums[i] == nums[i-1] {
+				continue
+			}
+			for j, k := i+1, n-1; j < k; {
+				sum := nums[i] + nums[j] + nums[k]
+				if abs(sum-target) < diff {
+					res, diff = sum, abs(sum-target)
+				}
+				if sum == target {
+					return res
+				} else if sum > target {
+					k--
+				} else {
+					j++
+				}
+			}
+		}
+	}
+	return res
+}
+
+func abs(num int) int {
+	if num >= 0 {
+		return num
+	}
+	return -num
 }

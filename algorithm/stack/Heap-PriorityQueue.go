@@ -1,6 +1,61 @@
-package heap
+package stack
 
 import "container/heap"
+
+//优先级队列的应用
+
+/**
+ * 215,找到一个数组里的第K大值
+ */
+func findKthLargest(nums []int, k int) int {
+	pq := make(PriorityQueue, len(nums))
+	for i := 0; i < len(nums); i++ {
+		pq[i] = &Item{
+			value:    nums[i],
+			priority: nums[i],
+			index:    i,
+		}
+	}
+	heap.Init(&pq)
+	var i int
+	for pq.Len() > 0 {
+		i++
+		v := heap.Pop(&pq).(*Item)
+		if i == k {
+			return v.value
+		}
+	}
+	return -1
+}
+
+/**
+ *88.合并2个有序链表
+ */
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	pq := make(PriorityQueue, m+n)
+	i := 0
+	for ; i < m; i++ {
+		pq[i] = &Item{
+			value:    nums1[i],
+			priority: nums1[i],
+			index:    i,
+		}
+	}
+	for ; i < m+n; i++ {
+		pq[i] = &Item{
+			value:    nums2[i],
+			priority: nums2[i],
+			index:    i,
+		}
+	}
+	heap.Init(&pq)
+	var j int
+	for pq.Len() > 0 {
+		v := heap.Pop(&pq).(*Item)
+		nums1[j] = v.value
+		j++
+	}
+}
 
 type Item struct {
 	value    int // 优先级队列中的数据，可以是任意类型，这里使用int
@@ -50,53 +105,4 @@ func (pq *PriorityQueue) update(item *Item, value int, priority int) {
 	item.value = value
 	item.priority = priority
 	heap.Fix(pq, item.index)
-}
-
-//找到一个数组里的第K大值
-func findKthLargest(nums []int, k int) int {
-	pq := make(PriorityQueue, len(nums))
-	for i := 0; i < len(nums); i++ {
-		pq[i] = &Item{
-			value:    nums[i],
-			priority: nums[i],
-			index:    i,
-		}
-	}
-	heap.Init(&pq)
-	var i int
-	for pq.Len() > 0 {
-		i++
-		v := heap.Pop(&pq).(*Item)
-		if i == k {
-			return v.value
-		}
-	}
-	return -1
-}
-
-//合并2个有序链表
-func merge(nums1 []int, m int, nums2 []int, n int) {
-	pq := make(PriorityQueue, m+n)
-	i := 0
-	for ; i < m; i++ {
-		pq[i] = &Item{
-			value:    nums1[i],
-			priority: nums1[i],
-			index:    i,
-		}
-	}
-	for ; i < m+n; i++ {
-		pq[i] = &Item{
-			value:    nums2[i],
-			priority: nums2[i],
-			index:    i,
-		}
-	}
-	heap.Init(&pq)
-	var j int
-	for pq.Len() > 0 {
-		v := heap.Pop(&pq).(*Item)
-		nums1[j] = v.value
-		j++
-	}
 }

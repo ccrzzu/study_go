@@ -31,6 +31,7 @@ func IsPopOrder2(pushed []int, popped []int) bool {
 	//return len(popped) == 0
 }
 
+// 压入顺序 是否可能是另一个的 弹出顺序
 func validateStackSequences(pushed []int, popped []int) bool {
 	stack := make([]int, 0)
 	i, j := 0, 0

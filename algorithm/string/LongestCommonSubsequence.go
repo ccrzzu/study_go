@@ -1,4 +1,4 @@
-package sub_sequence
+package string
 
 import "math"
 
