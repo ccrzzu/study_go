@@ -1,7 +1,9 @@
 package linked_list
 
-//是否是回文链表
-func ListNodeIsPalindrome(head *ListNode) bool {
+/**
+ 判断一个链表是否是回文链表
+ */
+func IsPalindrome(head *ListNode) bool {
 	slow := head
 	fast := head
 	for fast != nil && fast.Next != nil {
@@ -13,7 +15,7 @@ func ListNodeIsPalindrome(head *ListNode) bool {
 		slow = slow.Next
 	}
 	left := head
-	right := ReverseList(slow)
+	right := ReverseLinkedList(slow)
 	for right != nil {
 		if left.Val != right.Val {
 			return false

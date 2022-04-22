@@ -4,7 +4,7 @@ package linked_list
 //如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
 //您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
 //个位在头结点
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	i, j := l1, l2
 	head := new(ListNode)
 	tmp := head
