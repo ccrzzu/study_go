@@ -5,6 +5,7 @@ import (
 	"sort"
 )
 
+//1
 //两数之和，相加等于目标数，输入的数组无序，下标从0开始
 func TwoSum(nums []int, target int) []int {
 	nMap := make(map[int]int)
@@ -17,7 +18,7 @@ func TwoSum(nums []int, target int) []int {
 	return nil
 }
 
-//两数之和，输入的数组是有序的，下标从1开始
+// 解法二 两数之和，输入的数组是有序的，下标从1开始
 func twoSum1(numbers []int, target int) []int {
 	left, right := 0, len(numbers)-1
 	for left < right {
@@ -89,8 +90,13 @@ func twoSumNoRepeat(numbers []int, start, target int) [][]int {
 	return res
 }
 
-// 三数之和
-func threeSum(nums []int) [][]int {
+/**
+ 15
+ 给你一个包含 n 个整数的数组 nums，
+ 判断 nums 中是否存在三个元素 a，b，c ，
+ 使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
+*/
+func ThreeSum(nums []int) [][]int {
 	sort.Ints(nums)
 	res := [][]int{}
 	// 穷举 threeSum 的第一个数
@@ -107,8 +113,8 @@ func threeSum(nums []int) [][]int {
 	return res
 }
 
-// 三数之和，返回值没有重复的
-func threeSumNoRepeat(nums []int, start, target int) [][]int {
+// 15 三数之和，返回值没有重复的
+func ThreeSumNoRepeat(nums []int, start, target int) [][]int {
 	res := [][]int{}
 	// 穷举 threeSum 的第一个数
 	for i := start; i < len(nums); i++ {
@@ -124,13 +130,13 @@ func threeSumNoRepeat(nums []int, start, target int) [][]int {
 	return res
 }
 
-// 四数之和
-func fourSum(nums []int, target int) [][]int {
+//18 给定一个数组，要求在这个数组中找出 4 个数之和为 0 的所有组合。
+func FourSum(nums []int, target int) [][]int {
 	sort.Ints(nums)
 	res := [][]int{}
 	// 穷举 fourSum 的第一个数
 	for i := 0; i < len(nums); i++ {
-		repeat := threeSumNoRepeat(nums, i+1, target-nums[i])
+		repeat := ThreeSumNoRepeat(nums, i+1, target-nums[i])
 		for _, item := range repeat {
 			item = append(item, nums[i])
 			res = append(res, item)
@@ -143,10 +149,11 @@ func fourSum(nums []int, target int) [][]int {
 }
 
 /**
+16
 给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
 返回这三个数的和。
 */
-func threeSumClosest(nums []int, target int) int {
+func ThreeSumClosest(nums []int, target int) int {
 	n, res, diff := len(nums), 0, math.MaxInt32
 	if n > 2 {
 		sort.Ints(nums)
