@@ -79,35 +79,41 @@ func reverseBetween2(head *ListNode, m int, n int) *ListNode {
 }
 
 /**
- *将给出的链表中的节点每\ k k 个一组翻转，返回翻转后的链表
- *如果链表中的节点数不是\ k k 的倍数，将最后剩下的节点保持原样
- *你不能更改节点中的值，只能更改节点本身。
- *要求空间复杂度 \ O(1) O(1)
- */
+25
+*将给出的链表中的节点每k 个一组翻转，返回翻转后的链表
+*如果链表中的节点数不是k 的倍数，将最后剩下的节点保持原样
+*你不能更改节点中的值，只能更改节点本身。
+解题思路：
+这是Swap里第24题的加强版，24 是两两相邻的元素，翻转链表。
+而 problem 25 要求的是 k 个相邻的元素，翻转链表，problem 相当于是 k = 2 的特殊情况。
+*/
+
+//解法一
 func ReverseKGroup(head *ListNode, k int) *ListNode {
-	// write code here
-	hair := &ListNode{Next: head}
-	pre := hair
+	dummyHead := &ListNode{Next: head}
+	pre := dummyHead
 
 	for head != nil {
 		tail := pre
 		for i := 0; i < k; i++ {
 			tail = tail.Next
 			if tail == nil {
-				return hair.Next
+				//代表链表中本轮循环的结点数不足k个，则按原样返回即可
+				return dummyHead.Next
 			}
 		}
-		nex := tail.Next
-		head, tail = reverseListReturnTailAndHead(head, tail)
+		next := tail.Next
+		head, tail = reverseListReturnNewHeadAndNewTail(head, tail)
 		pre.Next = head
-		tail.Next = nex
+		tail.Next = next
 		pre = tail
 		head = tail.Next
 	}
-	return hair.Next
+	return dummyHead.Next
 }
 
-func reverseListReturnTailAndHead(head, tail *ListNode) (*ListNode, *ListNode) {
+//工具方法，将指定头和尾的节点反转后返回新的头和尾节点
+func reverseListReturnNewHeadAndNewTail(head, tail *ListNode) (*ListNode, *ListNode) {
 	prev := tail.Next
 	cur := head
 	for prev != tail {
@@ -119,11 +125,13 @@ func reverseListReturnTailAndHead(head, tail *ListNode) (*ListNode, *ListNode) {
 	return prev, head
 }
 
-func reverseKGroup2(head *ListNode, k int) *ListNode {
+//解法二
+func ReverseKGroup2(head *ListNode, k int) *ListNode {
 	if head == nil || head.Next == nil || k == 1 {
 		return head
 	}
-	prev := &ListNode{0, nil} //哑节点，用于返回反转完成的链表
+	//哑节点，用于返回反转完成的链表
+	prev := &ListNode{0, nil}
 	prev.Next = head
 	pre := prev               //前置节点
 	left, right := head, head //分别指向待翻转头尾
@@ -135,7 +143,7 @@ func reverseKGroup2(head *ListNode, k int) *ListNode {
 	for right != nil {
 		//只有步长为k的倍数时进行翻转，可以解决剩余节点不足k的情况
 		if count%k == 0 {
-			left, right = reverseListReturnTailAndHead(left, right)
+			left, right = reverseListReturnNewHeadAndNewTail(left, right)
 			pre.Next = left
 		}
 		pre = pre.Next
@@ -144,4 +152,30 @@ func reverseKGroup2(head *ListNode, k int) *ListNode {
 		count++
 	}
 	return prev.Next
+}
+
+//解法三
+func reverseKGroup(head *ListNode, k int) *ListNode {
+	node := head
+	for i := 0; i < k; i++ {
+		if node == nil {
+			return head
+		}
+		node = node.Next
+	}
+	newHead := reverseReturnNewFirst(head, node)
+	head.Next = reverseKGroup(node, k)
+	return newHead
+}
+
+// 工具类 将指定first和last+1节点之间的first到last所有节点反转后返回新的first节点
+func reverseReturnNewFirst(first *ListNode, last *ListNode) *ListNode {
+	prev := last
+	for first != last {
+		tmp := first.Next
+		first.Next = prev
+		prev = first
+		first = tmp
+	}
+	return prev
 }
