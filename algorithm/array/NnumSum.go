@@ -1,4 +1,4 @@
-package double_pointer
+package array
 
 import (
 	"math"
