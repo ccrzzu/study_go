@@ -3,10 +3,12 @@ module study_go
 go 1.14
 
 require (
+	bitbucket.org/avd/go-ipc v0.6.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/google/gops v0.3.13
+	github.com/james-barrow/golang-ipc v0.0.0-20210227130457-95e7cc81f5e2
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/onsi/ginkgo v1.14.2 // indirect
