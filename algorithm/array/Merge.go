@@ -61,7 +61,7 @@ func MergeB2AWithNoNewMem(A []int, m int, B []int, n int) {
 	}
 }
 
-//归并排序逻辑备忘
+//归并排序解法
 func MergeSort(nums1 []int, m int, nums2 []int, n int) {
 	i1, i2, tail := m-1, n-1, m+n-1
 	for i1 >= 0 && i2 >= 0 {
