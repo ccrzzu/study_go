@@ -6,7 +6,7 @@ import "math"
 func minWindow(s string, t string) string {
 	window := map[byte]int{}
 	need := map[byte]int{}
-	for i, _ := range t {
+	for i := range t {
 		need[t[i]]++
 	}
 	left, right, valid := 0, 0, 0
@@ -152,7 +152,7 @@ func lengthOfLongestSubInArray(arr []int) int {
 }
 
 //滑动窗口内的最大值 暴力解法
-func maxSlidingWindowBL(nums []int, k int) []int {
+func maxSlidingWindowByBaoLi(nums []int, k int) []int {
 	len := len(nums)
 	result := []int{}
 	for i := 0; i < len-k+1; i++ {
