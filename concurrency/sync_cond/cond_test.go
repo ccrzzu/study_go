@@ -1,4 +1,4 @@
-package concurrency
+package main
 
 import (
 	"fmt"
@@ -9,18 +9,26 @@ import (
 	"time"
 )
 
+/**
+还有个sync.Cond是用来控制某个条件下，
+goroutine进入等待时期，等待信号到来，然后重新启动。
+*/
+
 func TestCond(t *testing.T) {
 	lock := &sync.Mutex{}
 	cond := sync.NewCond(lock)
 	for i := 0; i < 10; i++ {
 		runGoroutine(cond, i)
 	}
+
 	time.Sleep(1 * time.Millisecond)
 	fmt.Println("----------------------------: signal 唤醒单个")
 	cond.Signal()
+
 	time.Sleep(1 * time.Millisecond)
 	fmt.Println("----------------------------: broadcast 唤醒全部")
 	cond.Broadcast()
+
 	time.Sleep(2 * time.Second)
 }
 
