@@ -6,6 +6,7 @@ func Fibonacci(n int) int {
 	//return fibonacciByIter(n)
 }
 
+//解法1：时间复杂度o(2^n)
 func fibonacciByDG(memo map[int]int, n int) int {
 	if res, ok := memo[n]; ok {
 		return res
@@ -20,6 +21,7 @@ func fibonacciByDG(memo map[int]int, n int) int {
 	return memo[n]
 }
 
+//解法2：时间复杂度o(n)
 func fibonacciByIter(n int) int {
 	//base case
 	if n == 1 {
@@ -38,6 +40,7 @@ func fibonacciByIter(n int) int {
 	return curr
 }
 
+//解法3：时间复杂度o(n)
 func fibonacciByIter2(n int) int {
 	//base case
 	if n == 1 {
@@ -46,23 +49,23 @@ func fibonacciByIter2(n int) int {
 	if n == 2 {
 		return 1
 	}
-	result := make([]int,n+1)
-	result[1]=0
-	result[2]=1
-	for i:=3;i<=n;i++{
+	result := make([]int, n+1)
+	result[1] = 0
+	result[2] = 1
+	for i := 3; i <= n; i++ {
 		result[i] = result[i-1] + result[i-2]
 	}
 	return result[n]
 }
 
-func GenFibValue()  {
+//解法4：闭包解法
+func GenFibValue() {
 	f := makeFibGen()
 	for i := 0; i < 10; i++ {
 		println(f())
 	}
 }
 
-//闭包
 func makeFibGen() func() int {
 	f1 := 0
 	f2 := 1
