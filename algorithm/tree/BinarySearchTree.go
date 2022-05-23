@@ -4,12 +4,12 @@ import (
 	"math"
 )
 
-//二叉搜索树特征
+//二叉搜索树/二叉查找树特征
 /**
  *1、对于 BST 的每一个节点node，左子树节点的值都比node的值要小，右子树节点的值都比node的值大。
  *2、对于 BST 的每一个节点node，它的左侧子树和右侧子树都是 BST。
  */
-//基于这个特征，就意味着二叉搜索树的左子树比右子树小，以及其中序遍历是生序序列等可利用之处解决相关问题
+//基于这个特征，就意味着二叉搜索树的左子树比右子树小，以及其中序遍历是生序序列等特点，来解决相关实际问题。
 
 //判断二叉搜索树的有效性
 func isValidBST(root *TreeNode) bool {
@@ -281,5 +281,74 @@ func insertIntoBST(root *TreeNode, val int) *TreeNode {
 	if val < root.Val {
 		root.Left = insertIntoBST(root.Left, val)
 	}
+	return root
+}
+
+//二叉查找树查找某个元素 递归解法
+func searchBST1(root *TreeNode, val int) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	if root.Val == val {
+		return root
+	} else if root.Val < val {
+		return searchBST1(root.Right, val)
+	} else if root.Val > val {
+		return searchBST1(root.Left, val)
+	}
+	return nil
+}
+
+//二叉查找树查找某个元素 迭代解法
+func searchBST2(root *TreeNode, val int) *TreeNode {
+	for root != nil {
+		if root.Val == val {
+			return root
+		} else if root.Val < val {
+			root = root.Right
+		} else if root.Val > val {
+			root = root.Left
+		}
+	}
+	return nil
+}
+
+//二叉查找树删除某个节点
+func BSTDeleteNode(root *TreeNode, key int) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	if key > root.Val {
+		root.Right = BSTDeleteNode(root.Right, key)
+		return root
+	}
+	if key < root.Val {
+		root.Left = BSTDeleteNode(root.Left, key)
+		return root
+	}
+	//到这里意味着到删除目标了
+	if root.Right == nil {
+		return root.Left
+	}
+	if root.Left == nil {
+		return root.Right
+	}
+	minNode := root.Right
+	for minNode.Left != nil {
+		minNode = minNode.Left
+	}
+	root.Val = minNode.Val
+	root.Right = deleteMinNode(root.Right)
+	return root
+}
+
+//删除最小节点
+func deleteMinNode(root *TreeNode) *TreeNode {
+	if root.Left == nil {
+		pRight := root.Right
+		root.Right = nil
+		return pRight
+	}
+	root.Left = deleteMinNode(root.Left)
 	return root
 }

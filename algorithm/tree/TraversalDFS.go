@@ -1,6 +1,8 @@
 package tree
 
 /**
+DFS : depth first search 深度优先遍历
+
 四种主要的遍历思想为：
 
 前序遍历：根结点 ---> 左子树 ---> 右子树
