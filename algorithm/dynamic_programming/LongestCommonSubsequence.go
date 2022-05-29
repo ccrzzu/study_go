@@ -1,4 +1,4 @@
-package string
+package dynamic_programming
 
 import "math"
 

@@ -1,6 +1,4 @@
-package sliding_window
-
-import "strings"
+package string
 
 /**
 643
