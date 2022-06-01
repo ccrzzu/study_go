@@ -34,7 +34,7 @@ func twoSum1(numbers []int, target int) []int {
 	return []int{-1, -1}
 }
 
-// 两数之和，返回值是所有满足的值
+// 两数之和，输入的数组是有序的，返回值是所有满足的值
 func twoSum2(numbers []int, target int) [][]int {
 	left, right := 0, len(numbers)-1
 	res := [][]int{}

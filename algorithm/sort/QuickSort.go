@@ -13,15 +13,15 @@ import "fmt"
 3、直到左右两部分的子数组只含一个元素就结束递归。
 */
 func QuickSort(nums []int) {
-	quicSort(nums, 0, len(nums)-1)
+	QuicSortDG(nums, 0, len(nums)-1)
 	fmt.Println(nums)
 }
 
-func quicSort(nums []int, left, right int) {
+func QuicSortDG(nums []int, left, right int) {
 	if left < right {
 		partIndex := partition(nums, left, right)
-		quicSort(nums, left, partIndex-1)
-		quicSort(nums, partIndex+1, right)
+		QuicSortDG(nums, left, partIndex-1)
+		QuicSortDG(nums, partIndex+1, right)
 	}
 }
 
@@ -29,15 +29,18 @@ func partition(nums []int, left, right int) int {
 	//这个基准值随意找，一般找第一个数
 	pivotKeyVal := nums[left]
 	for left < right {
-		//先从right开始找，再从left开始找
+		//先从right开始找，比基准值大的，就继续
 		for left < right && nums[right] >= pivotKeyVal {
 			right--
 		}
-		//left和right的值进行交换
+		//right值小于基准值了，就把right的值放到left位置
 		nums[left] = nums[right]
+
+		//再从left开始找，比基准值小的，就继续
 		for left < right && nums[left] <= pivotKeyVal {
 			left++
 		}
+		//left值大于基准值了，就把left的值放到right位置
 		nums[right] = nums[left]
 	}
 	// 当left和right相等时，相当于已经完成了一轮排序，把基准值pivotKeyVal赋值给中间

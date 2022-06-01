@@ -1,18 +1,75 @@
 package dynamic_programming
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
-//给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
-//如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。
+/**
+121 买卖股票的最佳时机
+给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。
+设计一个算法来计算你所能获取的最大利润。
+
+返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+*/
+//dpi0 交易完后手里没有股票的最大利润
+//dpi1 交易完后手里持有一支股票的最大利润
 func maxProfit(prices []int) int {
 	dpi0, dpi1 := 0, math.MinInt32
 	for i := 0; i < len(prices); i++ {
-		dpi0 = int(math.Max(float64(dpi0), float64(dpi1+prices[i])))
-		dpi1 = int(math.Max(float64(dpi1), float64(-prices[i])))
+		dpi0 = max(dpi0, dpi1+prices[i])
+		dpi1 = max(dpi1, -prices[i])
 	}
 	return dpi0
 }
 
+// 解法一 dp
+func maxProfit2(prices []int) int {
+	if len(prices) < 1 {
+		return 0
+	}
+	min, maxProfit := prices[0], 0
+	for i := 1; i < len(prices); i++ {
+		if prices[i]-min > maxProfit {
+			maxProfit = prices[i] - min
+		}
+		if prices[i] < min {
+			min = prices[i]
+		}
+	}
+	return maxProfit
+}
+
+// 解法二 构建单调递增栈，然后由栈顶-栈底即可得出最大利润值
+func MaxProfit3(prices []int) int {
+	if len(prices) == 0 {
+		return 0
+	}
+	stack, res := []int{prices[0]}, 0
+	for i := 1; i < len(prices); i++ {
+		if prices[i] > stack[len(stack)-1] {
+			stack = append(stack, prices[i])
+		} else {
+			index := len(stack) - 1
+			for ; index >= 0; index-- {
+				if stack[index] < prices[i] {
+					break
+				}
+			}
+			fmt.Println(stack, index)
+			stack = stack[:index+1]
+			fmt.Println(stack)
+			stack = append(stack, prices[i])
+		}
+		fmt.Println(stack)
+		res = max(res, stack[len(stack)-1]-stack[0])
+	}
+	return res
+}
+
+//122
+//与121不同的是，可以多次交易
 //给定一个整数数组prices ，它的第 i 个元素prices[i] 是一支给定的股票在第 i 天的价格。
 //设计一个算法来计算你所能获取的最大利润。你可以尽可能多的完成交易。
 func maxProfit_k_inf(prices []int) int {
@@ -25,6 +82,14 @@ func maxProfit_k_inf(prices []int) int {
 	}
 	return dpi0
 }
+
+func maxProfit_k_inf2(prices []int) (ans int) {
+    for i := 1; i < len(prices); i++ {
+        ans += max(0, prices[i]-prices[i-1])
+    }
+    return
+}
+
 
 func MaxProfit_k_2(prices []int) int {
 	max_k := 2
