@@ -32,7 +32,7 @@ func setupRouter() *gin.Engine {
 
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
-		c.AbortWithError(404,errors.New("not found"))
+		c.AbortWithError(404, errors.New("not found"))
 		c.String(http.StatusOK, "pong")
 	})
 
@@ -79,7 +79,6 @@ func setupRouter() *gin.Engine {
 func main() {
 	r := setupRouter()
 	// Listen and Server in 0.0.0.0:8080
-
 
 	if err := agent.Listen(agent.Options{}); err != nil {
 		log.Fatalf("agent.Listen err: %v", err)
