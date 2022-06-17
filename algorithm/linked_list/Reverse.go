@@ -1,6 +1,7 @@
 package linked_list
 
 /**
+206
 反转链表
 */
 func ReverseLinkedList(head *ListNode) *ListNode {
