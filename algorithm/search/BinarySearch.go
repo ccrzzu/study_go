@@ -14,6 +14,22 @@ import (
 // 3. 查找第⼀个⼤于等于给定值的元素
 // 4. 查找最后⼀个⼩于等于给定值的元素
 
+//普通二分查找
+func binarySearch(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			return mid
+		} else if nums[mid] > target {
+			right = mid - 1
+		} else if nums[mid] < target {
+			left = mid + 1
+		}
+	}
+	return -1
+}
+
 // 1. 查找第⼀个值等于给定值的元素
 func searchFirstEqualElement(nums []int, target int) int {
 	low, high := 0, len(nums)-1
@@ -52,21 +68,7 @@ func searchLastEqualElement(nums []int, target int) int {
 	return -1
 }
 
-//二分查找
-func binarySearch(nums []int, target int) int {
-	left, right := 0, len(nums)-1
-	for left <= right {
-		mid := left + (right-left)/2
-		if nums[mid] == target {
-			return mid
-		} else if nums[mid] > target {
-			right = mid - 1
-		} else if nums[mid] < target {
-			left = mid + 1
-		}
-	}
-	return -1
-}
+
 
 //二分查找所有符合的值
 func binarySearchRange(nums []int, target int) []int {
