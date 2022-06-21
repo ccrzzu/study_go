@@ -16,6 +16,18 @@ func ReverseLinkedList(head *ListNode) *ListNode {
 	return pre
 }
 
+func ReverseLinkedList2(head *ListNode) *ListNode {
+	var behind *ListNode
+	for head != nil {
+		next := head.Next
+		head.Next = behind
+		behind = head
+		head = next
+	}
+	return behind
+}
+
+
 /**
 92
 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。
