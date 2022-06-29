@@ -3,6 +3,8 @@ package tree
 import (
 	"container/list"
 	"fmt"
+	"math"
+	"sort"
 	"study_go/algorithm/array"
 )
 
@@ -155,3 +157,70 @@ func levelOrderInZhi2(root *TreeNode) [][]int {
 	}
 	return res
 }
+
+
+/**
+515
+给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值。
+**/
+// 解法一 层序遍历二叉树，再将每层排序取出最大值
+func largestValues(root *TreeNode) []int {
+	tmp := levelOrderBySlice(root)
+	res := []int{}
+	for i := 0; i < len(tmp); i++ {
+		sort.Ints(tmp[i])
+		res = append(res, tmp[i][len(tmp[i])-1])
+	}
+	return res
+}
+
+// 解法二 层序遍历二叉树，遍历过程中不断更新最大值
+func largestValues1(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+	q := []*TreeNode{root}
+	var res []int
+	for len(q) > 0 {
+		qlen := len(q)
+		max := math.MinInt32
+		for i := 0; i < qlen; i++ {
+			node := q[0]
+			q = q[1:]
+			if node.Val > max {
+				max = node.Val
+			}
+			if node.Left != nil {
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
+		}
+		res = append(res, max)
+	}
+	return res
+}
+
+// 解法三 深度遍历二叉树
+func largestValues3(root *TreeNode) []int {
+	var res []int
+	var dfs func(root *TreeNode, level int)
+	dfs = func(root *TreeNode, level int) {
+		if root == nil {
+			return
+		}
+		if len(res) == level {
+			res = append(res, root.Val)
+		}
+		if res[level] < root.Val {
+			res[level] = root.Val
+		}
+
+		dfs(root.Right, level+1)
+		dfs(root.Left, level+1)
+	}
+	dfs(root, 0)
+	return res
+}
+

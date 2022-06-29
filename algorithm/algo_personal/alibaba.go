@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func main1() {
 	//case1 为空链表的情况
 	var head *ListNode = nil
 	fmt.Println(CheckListNodes(head))
