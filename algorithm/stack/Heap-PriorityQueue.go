@@ -1,6 +1,9 @@
 package stack
 
-import "container/heap"
+import (
+	"container/heap"
+	"fmt"
+)
 
 //优先级队列的应用
 
@@ -105,4 +108,58 @@ func (pq *PriorityQueue) update(item *Item, value int, priority int) {
 	item.Value = value
 	item.Priority = priority
 	heap.Fix(pq, item.Index)
+}
+
+//虾皮 新加坡
+
+//  merge mulit sorted list into one sorted array.
+func main() {
+	l1 := &SortedList{Nums: []int{1, 4, 7}}
+	l2 := &SortedList{Nums: []int{2, 5, 8}}
+	sortedListArr := []*SortedList{l1, l2}
+	fmt.Println(mergeMultiSortedList(sortedListArr))
+}
+
+type IntHeap []int // 定义一个类型
+
+func (h IntHeap) Len() int { return len(h) } // 绑定len方法,返回长度
+
+func (h IntHeap) Less(i, j int) bool { // 绑定less方法
+	return h[i] < h[j] // 如果h[i]<h[j]生成的就是小根堆，如果h[i]>h[j]生成的就是大根堆
+}
+
+func (h IntHeap) Swap(i, j int) { // 绑定swap方法，交换两个元素位置
+	h[i], h[j] = h[j], h[i]
+}
+
+func (h *IntHeap) Pop() interface{} { // 绑定pop方法，从最后拿出一个元素并返回
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+
+func (h *IntHeap) Push(x interface{}) { // 绑定push方法，插入新元素
+	*h = append(*h, x.(int))
+}
+
+type SortedList struct {
+	Nums []int
+}
+
+func mergeMultiSortedList(l []*SortedList) []int {
+	res := []int{}
+	h := &IntHeap{}
+	heap.Init(h)
+	for _, item := range l {
+		for _, num := range item.Nums {
+			heap.Push(h, num)
+		}
+	}
+	for len(*h) > 0 {
+		n := heap.Pop(h).(int)
+		res = append(res, n)
+	}
+	return res
 }

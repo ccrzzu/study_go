@@ -13,15 +13,15 @@ import "fmt"
 3、直到左右两部分的子数组只含一个元素就结束递归。
 */
 func QuickSort(nums []int) {
-	QuicSortDG(nums, 0, len(nums)-1)
+	QuickSortDG(nums, 0, len(nums)-1)
 	fmt.Println(nums)
 }
 
-func QuicSortDG(nums []int, left, right int) {
+func QuickSortDG(nums []int, left, right int) {
 	if left < right {
 		partIndex := partition(nums, left, right)
-		QuicSortDG(nums, left, partIndex-1)
-		QuicSortDG(nums, partIndex+1, right)
+		QuickSortDG(nums, left, partIndex-1)
+		QuickSortDG(nums, partIndex+1, right)
 	}
 }
 

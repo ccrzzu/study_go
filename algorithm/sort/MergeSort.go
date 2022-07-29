@@ -7,7 +7,8 @@ import "fmt"
 时间复杂度 o(nlogn)
 空间复杂度 o(n)
 原理也是分治思想
-与快速排序一样，归并排序采用的也是分治的策略，把原本的问题先分解成一些小问题进行求解，再把这些小问题各自的答案修整到一起得到原本问题的答案，从而达到分而治之的目的。
+与快速排序一样，归并排序采用的也是分治的策略，把原本的问题先分解成一些小问题进行求解，
+再把这些小问题各自的答案修整到一起得到原本问题的答案，从而达到分而治之的目的。
 1、分割：归并排序算法会把要排序的序列分成长度相当的两个子序列，
 	当分无可分每个子序列中只有一个数据的时候，就对子序列进行归并。
 2、归并：指的是把两个排序好的子序列合并成一个有序序列。
@@ -25,11 +26,11 @@ func mergeSort(nums []int, left, right int) {
 		return
 	}
 	mid := (left + right) / 2
+	//分割过程
 	mergeSort(nums, left, mid)
 	mergeSort(nums, mid+1, right)
-	if nums[mid] > nums[mid+1] {
-		merge(nums, left, mid, right)
-	}
+	//归并过程
+	merge(nums, left, mid, right)
 }
 
 //将nums[left...mid]和nums[mid+1...right]的两个区间进行归并
