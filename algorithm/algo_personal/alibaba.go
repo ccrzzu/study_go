@@ -57,7 +57,7 @@ func CheckListNodes(head *ListNode) bool {
 		slow = slow.Next
 	}
 	left := head
-	right := reverseList(slow)
+	right := ReverseList(slow)
 	for right != nil {
 		if left.Val != right.Val {
 			return false
@@ -68,7 +68,7 @@ func CheckListNodes(head *ListNode) bool {
 	return true
 }
 
-func reverseList(head *ListNode) *ListNode {
+func ReverseList(head *ListNode) *ListNode {
 	var pre *ListNode
 	cur := head
 	for cur != nil {

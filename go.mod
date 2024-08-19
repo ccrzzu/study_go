@@ -11,6 +11,8 @@ require (
 	github.com/james-barrow/golang-ipc v0.0.0-20210227130457-95e7cc81f5e2
 	github.com/t924417424/BloomFilter v0.0.0-20210521091009-a840841914ac
 	github.com/xuri/excelize/v2 v2.5.0
+	golang.org/x/sync v0.0.0-20190423024810-112230192c58
+	golang.org/x/time v0.5.0
 )
 
 require (

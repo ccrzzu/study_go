@@ -1,10 +1,11 @@
-package common
+package test
 
 import (
 	"fmt"
 	"net"
-	"testing"
+	"study_go/utils/crypto"
 	"study_go/utils/iputils"
+	"testing"
 )
 
 func TestIP(t *testing.T) {
@@ -21,4 +22,9 @@ func TestIP(t *testing.T) {
 	fmt.Println(iputils.IPtoUInt32(net.IP{12,13,14,15}))
 	fmt.Println(net.IP{12,13,14,15}.String())
 	fmt.Println(iputils.UInt32toIP(202182159))
+}
+
+
+func TestMD5(t *testing.T){
+	fmt.Println(crypto.GetMD5UUID())
 }

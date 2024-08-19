@@ -14,7 +14,7 @@ import "runtime"
 	3、将指向旧栈对应变量的指针重新指向新栈；
 	4、调用runtime.stackfree销毁并回收旧栈的内存空间；
 */
-func main() {
+func main1() {
 	// 栈扩容
 	/* var x [10]int
 	println(cap(x), &x)

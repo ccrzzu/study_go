@@ -32,7 +32,7 @@ func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return head.Next
 }
 
-//两个链表相加，个位在尾结点，比上难
+//两个链表相加，个位在尾结点，比上面的难
 func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
 	l1, l2 := ReverseList(head1), ReverseList(head2)
 	head := new(ListNode)
@@ -58,4 +58,16 @@ func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
 		tmp.Val = digit % 10
 	}
 	return ReverseList(head.Next)
+}
+
+func ReverseList(head *ListNode) *ListNode {
+	var pre *ListNode
+	cur := head
+	for cur != nil {
+		next := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+	return pre
 }

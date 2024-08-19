@@ -51,7 +51,11 @@ func main() {
 	// b := []int{3, 4, 2, 1}
 	// sort.Ints(b)
 	// fmt.Println(b)
-	n := 23123
-	nums := []int{2, 4, 9}
-	fmt.Println(array.LargestNumberLessN(nums, n))
+	// n := 23123
+	// nums := []int{2, 4, 9}
+	// fmt.Println(array.LargestNumberLessN(nums, n))
+
+	arr := []int{3379, 6319, 8468, 10101, 11334, 12478, 13568, 14586, 15512, 16479, 24337, 30907, 36500,59301}
+	res := array.CalculateDifferences(arr)
+	fmt.Println(res)
 }

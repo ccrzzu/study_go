@@ -26,12 +26,12 @@ func TestContext(t *testing.T) {
 
 	go func() {
 		time.Sleep(time.Second * 3)
-		fmt.Println("start call context cancel")
+		fmt.Println("start call context cancel,",time.Now())
 		cancel()
 	}()
 
 	wg.Wait()
-	fmt.Println("exit main goroutine")
+	fmt.Println("exit main goroutine,",time.Now())
 }
 
 func reqURL(ctx context.Context, wg *sync.WaitGroup) {
@@ -40,9 +40,10 @@ func reqURL(ctx context.Context, wg *sync.WaitGroup) {
 	for {
 		select {
 		case <-ctx.Done():
-			fmt.Printf("stop getting url:%s\n", url)
+			fmt.Printf("stop getting url:%s %v\n", url, time.Now())
 			return
 		default:
+			fmt.Printf("start getting url:%s %v\n", url, time.Now())
 			r, err := http.Get(url)
 			if r.StatusCode == http.StatusOK && err == nil {
 				body, _ := ioutil.ReadAll(r.Body)
@@ -63,11 +64,11 @@ func showResp(ctx context.Context, wg *sync.WaitGroup) {
 	for {
 		select {
 		case <-ctx.Done():
-			fmt.Println("stop showing resp")
+			fmt.Println("stop showing resp,",time.Now())
 			return
 		default:
 			//子goroutine里一般会处理一些IO任务，如读写数据库或者rpc调用，这里为了方便直接把数据打印
-			fmt.Println("printing ", ctx.Value(favContextKey("resp")))
+			fmt.Println("printing ", ctx.Value(favContextKey("resp")), time.Now())
 			time.Sleep(time.Second * 1)
 		}
 	}
